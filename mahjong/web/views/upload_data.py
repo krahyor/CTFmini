@@ -28,102 +28,18 @@ module = Blueprint("upload_data", __name__, url_prefix="/upload_data")
 @module.route("/", methods=["GET", "POST"])
 @login_required
 def index():
-    upload_data = models.Upload_data.objects(status="active")
-    catagory_data = models.Category.objects()
-    search_name = request.args.get("name", None)
-    search_category = request.args.get("category", None)
-    search_file_name = request.args.get("file_name", None)
-    search_status = request.args.get("status", None)
-    search_start_date = request.args.get("start_date", None)
-    search_end_date = request.args.get("end_date", None)
-    start_date = None
-    end_date = None
-    if search_start_date:
-        start_date = datetime.datetime.strptime(search_start_date, "%d/%m/%Y")
-    if search_end_date:
-        end_date = datetime.datetime.strptime(search_end_date, "%d/%m/%Y")
 
-    data_status = [
-        "waiting",
-        "completed",
-        "failed",
-    ]
-    is_search = False
-    if search_name:
-        if upload_data:
-            upload_data = upload_data(Q(name__icontains=search_name))
-        is_search = True
-
-    if search_category:
-        if upload_data:
-            category = models.Category.objects(Q(name__icontains=search_category))
-            upload_data = upload_data.filter(category__in=category)
-
-        elif not is_search:
-            upload_data = models.Upload_data.objects(status="active")
-        is_search = True
-
-    if search_file_name:
-        if upload_data:
-            upload_data = upload_data.filter(
-                upload_file_name__icontains=search_file_name.lower()
-            )
-        elif not is_search:
-            upload_data = models.Upload_data.objects(status="active")
-        is_search = True
-
-    if search_status:
-        if upload_data:
-            upload_data = upload_data.filter(
-                data_status__icontains=search_status.lower()
-            )
-        elif not is_search:
-            upload_data = models.Upload_data.objects(status="active")
-        is_search = True
-
-    if search_start_date and search_end_date:
-        if upload_data:
-            upload_data = upload_data(
-                Q(uploaded_date__gte=search_start_date)
-                | Q(
-                    uploaded_date__lte=end_date
-                    + datetime.timedelta(hours=23, minutes=59, seconds=59)
-                )
-            )
-        elif not is_search:
-            upload_data = models.Upload_data.objects(status="active")
-        is_search = True
-
-    if search_start_date:
-        if upload_data:
-            upload_data = upload_data(Q(uploaded_date__gte=start_date))
-        elif not is_search:
-            upload_data = models.Upload_data.objects(status="active")
-        is_search = True
-
-    if search_end_date:
-        if upload_data:
-            upload_data = upload_data(
-                Q(
-                    uploaded_date__lte=end_date
-                    + datetime.timedelta(hours=23, minutes=59, seconds=59)
-                )
-            )
-        elif not is_search:
-            upload_data = models.Upload_data.objects(status="active")
-        is_search = True
-
-    pagination = paginations.get_paginate(
-        data=upload_data,
-        items_per_page=25,
-    )
+    # pagination = paginations.get_paginate(
+    # data=upload_data,
+    # items_per_page=25,
+    # )
 
     return render_template(
         "upload_data/index.html",
-        data_status=data_status,
-        catagory_data=catagory_data,
-        upload_data=pagination["data"],
-        pagination=pagination,
+        # data_status=data_status,
+        # catagory_data=catagory_data,
+        # upload_data=pagination["data"],
+        # pagination=pagination,
     )
 
 

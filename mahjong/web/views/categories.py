@@ -25,71 +25,8 @@ module = Blueprint("categories", __name__, url_prefix="/categories")
 @module.route("/")
 @login_required
 def index():
-    categories = models.Category.objects(status="active")
-    search_category = request.args.get("category", None)
-    search_create_by = request.args.get("create_by", None)
-    search_start_date = request.args.get("start_date", None)
-    search_end_date = request.args.get("end_date", None)
-    start_date = None
-    end_date = None
-    if search_start_date:
-        start_date = datetime.datetime.strptime(search_start_date, "%d/%m/%Y")
-    if search_end_date:
-        end_date = datetime.datetime.strptime(search_end_date, "%d/%m/%Y")
-    is_search = False
 
-    if search_category:
-        if categories:
-            categories = categories.filter(name__icontains=search_category)
-        is_search
-
-    if search_create_by:
-        if categories:
-            create_by = models.User.objects(Q(first_name__icontains=search_create_by))
-            categories = categories(Q(created_by__in=create_by))
-        elif not is_search:
-            categories = models.Category.objects(status="active=")
-        is_search = True
-
-    if search_start_date and search_end_date:
-        if categories:
-            categories = categories(
-                Q(created_date__gte=search_start_date)
-                | Q(
-                    created_date__lte=end_date
-                    + datetime.timedelta(hours=23, minutes=59, seconds=59)
-                )
-            )
-        elif not is_search:
-            categories = models.categories.objects(status="active")
-        is_search = True
-
-    if search_start_date:
-        if categories:
-            categories = categories(Q(created_date__gte=start_date))
-        elif not is_search:
-            categories = models.categories.objects(status="active")
-        is_search = True
-
-    if search_end_date:
-        if categories:
-            categories = categories(
-                Q(
-                    created_date__lte=end_date
-                    + datetime.timedelta(hours=23, minutes=59, seconds=59)
-                )
-            )
-        elif not is_search:
-            categories = models.categories.objects(status="active")
-        is_search = True
-
-    pagination = paginations.get_paginate(
-        data=categories,
-        items_per_page=25,
-    )
-    return render_template(
-        "/categories/index.html", categories=pagination["data"], pagination=pagination
-    )
+    return render_template("/categories/index.html")
 
 
 @module.route(
