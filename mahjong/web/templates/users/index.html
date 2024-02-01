@@ -1,0 +1,106 @@
+{% extends "base/default-page.html" %}
+{% import '/base/html-renderer.html' as renderer %}
+
+{% block content %}
+<div class="ui segment">
+
+  <h1 class="ui header">
+    Users
+  </h1>
+
+</div>
+
+<div class="ui segment">
+
+  <a class="ui primary labeled icon button" href="{{url_for('users.create_or_edit')}}">
+    <i class="add icon"></i>
+    Create user
+  </a>
+
+  {#
+  <a class="ui primary labeled icon button" onclick="showCreateCategory('{{ category.id }}')">
+    <i class="add icon"></i>
+    Create Category
+  </a>
+  #}
+
+
+  <table class="ui celled table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Status</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr>
+        <td data-label="Name">{{user.first_name}} {{user.last_name}}</td>
+        <td data-label="Email">{{user.email}}</td>
+        <td data-label="Phone">{{user.phone_number}}</td>
+        <td data-label="Status">{{user.status}}</td>
+        <td data-label="edit"><a href="{{url_for('users.create_or_edit', user_id=user.id)}}"><i
+              class="edit icon yellow"></i></a></td>
+        <td data-label="delete"><a onclick="showDeleteModal('{{ user.id }}')"><i class="trash icon red"></i></a>
+        </td>
+      </tr>
+      <div class="ui small modal {{user.id}}">
+        <div class="header">{{ ("Delete User") }}</div>
+        <div class="content">
+          <h4 class="ui headers">
+            {{ ("Are you sure you want to delete") }} <span class="ui red text">{{ user.first_name }} {{ user.last_name
+              }}</span> {{
+            ("user?") }}
+          </h4>
+          <a class="ui right floated negative button" style="margin-bottom: 1em;"
+            href="{{url_for('users.delete', user_id=user.id)}}">
+            {{ ("Delete") }}</i>
+          </a>
+          <button class="ui right floated button" onclick="showDeleteModal()">{{ ("Cancel") }}</button>
+        </div>
+      </div>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {#
+  <div class="ui modal create ">
+    <div class="header">Create Category</div>
+    <div class="Content">
+      <form method="POST" class="ui form">
+
+        {{ form.csrf_token }}
+
+        {{ renderer.render_field(form.name)}}
+
+        <input type="hidden" name="create_category" value="category">
+        <button name="cretae" type="submit" class="ui button primary">Create</button>
+    </div>
+  </div>
+  #}
+
+</div>
+
+
+
+{% endblock %}
+
+{% block additional_js %}
+{#
+<script>
+  function showCreateCategory(category_id) {
+    $('.create.' + category_id).modal('show')
+  }
+</script>
+#}
+<script>
+  function showDeleteModal(user_id) {
+    user_id ? $('.ui.small.modal.' + user_id).modal('show') : $('.ui.small.modal').modal('hide')
+      ;
+  }
+</script>
+{% endblock %}

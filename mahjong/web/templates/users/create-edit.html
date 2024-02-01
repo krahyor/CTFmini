@@ -1,0 +1,58 @@
+{% extends "/base/default-page.html" %}
+{% import '/base/html-renderer.html' as renderer %}
+
+{% block content %}
+<form method="POST">
+  <div class="ui segment">
+    <h1>{{"Edit" if "edit" in request.path else "Create"}} User</h1>
+    <div class="ui form">
+      {{ form.csrf_token }}
+      {% if "edit" not in request.path %}
+      <div class="form-group">
+        {{ renderer.render_field(form.username) }}
+      </div>
+      <div class="field">
+        {{ renderer.render_field(form.password) }}
+      </div>
+      <div class="field">
+        {{ renderer.render_field(form.confirm_password) }}
+      </div>
+      {% endif %}
+      <div class="two fields">
+        {{ renderer.render_field(form.first_name)}}
+        {{ renderer.render_field(form.last_name)}}
+      </div>
+      <div class="form-group">
+        {{ renderer.render_field(form.email) }}
+      </div>
+      <p></p>
+      {#{% if "edit" in request.path %}
+      <a class="ui primary button" onclick="showDeleteModal('edit')">Submit</a>
+      <div class="ui small modal edit">
+        <div class="header">{{ ("Edit User") }}</div>
+        <div class="content">
+          <h4 class="ui headers">
+            {{ ("Are you sure you want to edit") }} <span class="ui red text">{{ user.first_name }} {{ user.last_name
+              }}</span> {{
+            ("user?") }}
+          </h4>
+          <button type="submit" class="ui right floated primary button" style="margin-bottom: 1em;">Submit</button>
+          <a class="ui right floated button" onclick="showDeleteModal()">{{ ("Cancel") }}</a>
+        </div>
+      </div>
+      {% else %}#}
+      <button type="submit" class="ui primary button">Submit</button>
+      {#{% endif %}#}
+
+    </div>
+  </div>
+</form>
+{% endblock %}
+{% block additional_js %}
+<script>
+  function showDeleteModal(user_id) {
+    user_id ? $('.ui.small.modal.' + user_id).modal('show') : $('.ui.small.modal').modal('hide')
+      ;
+  }
+</script>
+{% endblock %}

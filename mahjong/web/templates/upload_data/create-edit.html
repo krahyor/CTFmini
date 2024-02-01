@@ -1,0 +1,29 @@
+{% extends "/base/default-page.html" %}
+{% import '/base/html-renderer.html' as renderer %}
+
+{% block content %}
+<div class="ui segment">
+    {% if 'edit' in request.path %}
+    <h1>Update</h1>
+    {%else%}
+    <h1>Upload</h1>
+    {%endif%}
+    <form method="POST" class="ui form" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        <div class="form-group">
+            {{ renderer.render_field(form.name) }}
+        </div>
+        <div class="field">
+            {{ renderer.render_field(form.description) }}
+        </div>
+        <div class="field">
+            {{ renderer.render_select(form.category_choices) }}
+        </div>
+        <div class="field">
+            {{ renderer.render_field(form.uploaded_file) }}
+        </div>
+        <p></p>
+        <button type="submit" class="ui primary button">Submit</button>
+    </form>
+</div>
+{% endblock %}

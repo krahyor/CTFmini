@@ -1,0 +1,183 @@
+{% extends "base/default-page.html" %}
+{% import '/base/html-renderer.html' as renderer %}
+
+{% block content %}
+<div class="ui segment">
+  <h1>Data Tables</h1>
+
+</div>
+
+<form method="GET" autocomplete="off">
+  <div class="ui horizontal segments">
+    <div class="ui grid" style="margin-top: 1%; margin-bottom: 1%; margin-left:2%;">
+
+      <div>
+        <div>
+          <label class="ui header">Search name</label>
+        </div>
+        <div class="ui input icon">
+          <input value="{{ request.args.get('name', '') }}" name="name" type="text" placeholder="Search...">
+        </div>
+      </div>
+      <div>
+        <div>
+          <label class="ui header">Category</label>
+        </div>
+        <select class="ui search dropdown" name="category">
+          <option value="" disabled selected>Select Category</option>
+          {% for category in catagory_data %}
+          <option value="{{ category.name }}" {{ 'selected' if request.args.get('category')==category.name }}>
+            {{ category.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <div>
+          <label name="status" style="w" class="ui header">Status</label>
+        </div>
+        <div class="ui  selection dropdown">
+          <input value="{{ request.args.get('status','') }}" type="hidden" name="status">
+          <div class="default text">Select Status</div>
+          <i class="dropdown icon"></i>
+          <div class="scrollhint menu">
+            {% for status in data_status %}
+            <div class="item" data-value="{{ status }}">{{ status }}</div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div>
+        <div>
+          <label class="ui header">Start date</label>
+        </div>
+        <div class="field">
+          <div class="ui calendar" id="rangestart">
+            <div class="ui input left icon">
+              <i class="calendar icon"></i>
+              <input value="{{ request.args.get('start_date','') }}" name="start_date" type="text" placeholder="Start">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui form">
+        <div>
+          <div>
+            <label class="ui header">End date</label>
+          </div>
+          <div class="field">
+            <div class="ui calendar" id="rangeend">
+              <div class="ui input left icon">
+                <i class="calendar icon"></i>
+                <input value="{{ request.args.get('end_date','') }}" name="end_date" type="text" placeholder="End">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom" style="margin-top: 1.55%;">
+        <button class="ui primary button" type="submit"><i class="search icon"></i>
+          Search</button>
+      </div>
+    </div>
+  </div>
+</form>
+<div class="ui segment">
+  <a class="ui primary button" href="{{ url_for('upload_data.create_or_edit') }}">
+    <i class="add icon"></i>Upload Data</a>
+  </a>
+
+  <table class="ui celled table">
+    <thead>
+      <tr>
+        <th>Data Name</th>
+        <th>Category</th>
+        <th>File</th>
+        <th>Uploaded by</th>
+        <th>Upload/Update Date</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for file in upload_data %}
+      <tr>
+        <td data-label="Name">{{file.name}}</td>
+        <td data-label="Category">{{file.category.name}}</td>
+        <td data-label="Filename">{{file.upload_file.filename}}</td>
+        <td data-label="Upload by">{{file.upload_by.first_name}} {{file.upload_by.last_name}}</td>
+        <td data-label="Upload/Update Date">{{ file.get_uploaded_date() }}</td>
+        <td data-label="Status">{{file.data_status}}</td>
+        <td data-label="edit">
+          <div>
+            <a href="{{url_for('upload_data.create_or_edit', upload_data_id=file.id)}}"><i class="edit icon"></i></a>
+            <a href="{{url_for('upload_data.download',upload_data_id=file.id)}}"><i
+                class="cloud download alternate icon"></i></a>
+            <a onclick="showDeleteModal('{{ file.id }}')"><i class="trash icon red"></i></a>
+          </div>
+          <div class="ui small modal {{file.id}}">
+            <div class="header">{{ ("Delete File") }}</div>
+            <div class="content">
+              <h4 class="ui headers">
+                {{ ("Are you sure you want to delete") }} <span class="ui red text">{{ file.name }}</span> {{
+                ("File?") }}
+              </h4>
+              <a class="ui right floated negative button" style="margin-bottom: 1em;"
+                href="{{url_for('upload_data.delete', upload_data_id=file.id)}}">
+                {{ ("Delete") }}</i>
+              </a>
+              <button class="ui right floated button" onclick="showDeleteModal()">{{ ("Cancel") }}</button>
+            </div>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+
+  </table>
+  <div>
+    {% with redirect=url_for('upload_data.index') %}
+    {% include "base/pagination.html" %}
+    {% endwith %}
+  </div>
+</div>
+<script>
+  $('.ui.dropdown')
+    .dropdown()
+    ;
+</script>
+<script>
+  $('#rangestart').calendar({
+    type: 'date',
+    monthFirst: false,
+    endCalendar: $('#rangeend'),
+    formatter: {
+      date: 'DD/MM/YYYY'
+    }
+  });
+  $('#rangeend').calendar({
+    type: 'date',
+    monthFirst: false,
+    startCalendar: $('#rangestart'),
+    formatter: {
+      date: 'DD/MM/YYYY'
+    }
+  });
+  function showDeleteModal(upload_data_id) {
+    upload_data_id ? $('.ui.small.modal.' + upload_data_id).modal('show') : $('.ui.small.modal').modal('hide')
+      ;
+  }
+</script>
+<script>
+  $('.clearable.example .ui.selection.dropdown')
+    .dropdown({
+      clearable: true
+    })
+    ;
+  $('.clearable.example .ui.inline.dropdown')
+    .dropdown({
+      clearable: true,
+      placeholder: 'any'
+    })
+    ;
+</script>
+{% endblock %}

@@ -1,0 +1,165 @@
+{% extends "base/default-page.html" %}
+{% import '/base/html-renderer.html' as renderer %}
+
+{% block content %}
+<div class="ui segment">
+
+  <h1 class="ui header">
+    Categories
+  </h1>
+
+</div>
+<form method="GET">
+  <div class="ui horizontal segments">
+    <div class="ui grid" style="margin-top: 1%; margin-bottom: 1%; margin-left: 2%; margin-right: 0.1%;">
+      <div>
+        <div>
+          <label class="ui header">Category</label>
+        </div>
+        <div class="ui icon input">
+          <input value="{{ request.args.get('category', '') }}" name="category" type="text" placeholder="Search...">
+        </div>
+      </div>
+      <div>
+        <div>
+          <label class="ui header">Create By</label>
+        </div>
+        <div class="ui icon input">
+          <input value="{{ request.args.get('create_by', '') }}" name="create_by" type="text" placeholder="Search...">
+        </div>
+      </div>
+      <div>
+        <div>
+          <label class="ui header">Start date</label>
+        </div>
+        <div class="field">
+          <div class="ui calendar" id="rangestart">
+            <div class="ui icon input ">
+              <i class="calendar icon"></i>
+              <input value="{{ request.args.get('start_date','') }}" name="start_date" type="text" placeholder="Start">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui form">
+        <div>
+          <div>
+            <label class="ui header">End date</label>
+          </div>
+          <div class="field">
+            <div class="ui calendar" id="rangeend">
+              <div class="ui icon input">
+                <i class="calendar icon"></i>
+                <input value="{{ request.args.get('end_date','') }}" name="end_date" type="text" placeholder="End">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: 2.2%;">
+        <button class="ui primary button" type="submit"><i class="search icon"></i>
+          Search</button>
+      </div>
+    </div>
+  </div>
+</form>
+<div class="ui segment">
+
+  <a class="ui primary labeled icon button" href="{{url_for('categories.create_or_edit')}}">
+    <i class="add icon"></i>
+    Create Category
+  </a>
+
+
+  {#
+  <a class="ui primary labeled icon button" onclick="showCreateCategory('{{ category.id }}')">
+    <i class="add icon"></i>
+    Create Category
+  </a>
+  #}
+
+
+  <table class="ui celled table">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Created/Editd by</th>
+        <th>Create Date</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for category in categories %}
+      <tr>
+        <td data-label="Name">{{category.name}}</td>
+        <td data-label="Age">{{category.created_by.first_name}} {{category.created_by.last_name}}</td>
+        <td data-label="Age">{{category.get_created_date()}}</td>
+        <td data-label="edit"><a href="{{url_for('categories.create_or_edit', category_id=category.id)}}"><i
+              class="edit icon yellow"></i></a></td>
+        <td data-label="edit">
+          <a onclick="showDeleteModal('{{ category.id }}')"><i class="trash icon red"></i></a>
+        </td>
+        <div class="ui small modal {{category.id}}">
+          <div class="header">{{ ("Delete Category") }}</div>
+          <div class="content">
+            <h4 class="ui headers">
+              {{ ("Are you sure you want to delete") }} <span class="ui red text">{{ category.name }}</span> {{
+              ("category?") }}
+            </h4>
+            <a class="ui right floated negative button" style="margin-bottom: 1em;"
+              href="{{url_for('categories.delete', category_id=category.id)}}">
+              {{ ("Delete") }}</i>
+            </a>
+            <button class="ui right floated button" onclick="showDeleteModal()">{{ ("Cancel") }}</button>
+          </div>
+        </div>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div>
+    {% with redirect=url_for('categories.index') %}
+    {% include "base/pagination.html" %}
+    {% endwith %}
+  </div>
+
+</div>
+
+
+
+
+{% endblock %}
+
+{% block additional_js %}
+<script>
+  $('#rangestart').calendar({
+    type: 'date',
+    monthFirst: false,
+    endCalendar: $('#rangeend'),
+    formatter: {
+      date: 'DD/MM/YYYY'
+    }
+  });
+  $('#rangeend').calendar({
+    type: 'date',
+    monthFirst: false,
+    startCalendar: $('#rangestart'),
+    formatter: {
+      date: 'DD/MM/YYYY'
+    }
+  });
+  function showDeleteModal(category_id) {
+    category_id ? $('.ui.small.modal.' + category_id).modal('show') : $('.ui.small.modal').modal('hide')
+      ;
+  }
+</script>
+
+{#
+<script>
+  function showCreateCategory(category_id) {
+    $('.create.' + category_id).modal('show')
+  }
+</script>
+#}
+{% endblock %}

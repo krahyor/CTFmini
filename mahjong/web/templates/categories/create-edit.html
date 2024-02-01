@@ -1,0 +1,20 @@
+{% extends "base/default-page.html" %}
+{% import '/base/html-renderer.html' as renderer %}
+
+{% block content %}
+
+    <div class="ui segment">
+        {% if 'create' in request.path %}
+        <h1>Create Category</h1>
+        {% else %}
+        <h1>Edit Category</h1>
+        {% endif %}
+    </div>
+
+    <div class="ui segment">
+        <form method="POST" class="ui form" enctype="multipart/form-data">
+            {{ form.csrf_token }}
+            {{ renderer.render_field(form.name )}}
+        <button class="ui primary button" type="submit">Submit</button>
+    </div>
+{% endblock %}

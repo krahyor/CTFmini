@@ -1,0 +1,48 @@
+{% extends "/base/default-page.html" %}
+
+
+
+{% block content %}
+{% block breadcrumbs %}
+<div class="ui segment">
+    <div class="ui breadcrumb">
+        <a href="{{ url_for('accounts.index') }}">Profile</a>
+    </div>
+</div>
+{% endblock %}
+
+<div class="ui segment">
+    <div class="ui header huge text">Profile </div>
+
+    <div class="ui grid">
+        <div class="eight wide column">
+            <p class="sub header ui huge text">First Name
+            <div>{{ current_user.first_name }}</div>
+            </p>
+        </div>
+        <div class="eight wide column">
+            <p class="sub header ui huge text">Last Name
+            <div>{{ current_user.last_name }}</div>
+            </p>
+        </div>
+    </div>
+
+    <div class="ui grid">
+        <div class="eight wide column">
+            <p class="sub header ui huge text">Email
+            <div>{{ current_user.email }}</div>
+            </p>
+        </div>
+        <div class="eight wide column">
+            <p class="sub header ui huge text">Phonenumber
+            <div>{{ current_user.phone_number }}</div>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}
