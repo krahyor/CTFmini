@@ -6,29 +6,32 @@ from wtforms import fields, widgets, validators
 from mahjong import models
 
 BaseUploadDataForm = model_form(
-    models.Upload_data,
+    models.SubmitFlags,
     FlaskForm,
     exclude=[
-        "uploaded_date",
         "upload_by",
-        "upload_file",
+        "upload_file_name",
         "last_updated_by",
         "updated_date",
-        "upload_file_name",
+        "uploaded_date",
+        "update_info",
+        "problem_solvers",
     ],
     field_args={
-        "name": {"label": "Name"},
+        "problem_header": {"label": "Problem Header"},
         "description": {"label": "Description"},
-        # "category": {"label": "Category", "label_modifier": lambda c: c.name},
+        "hint": {"label": "Hint"},
+        "flag": {"label": "Flag"},
     },
 )
 
 
 class UploadDataForm(BaseUploadDataForm):
     uploaded_file = file.FileField(
-        "Excel File type (.xls or .xlsx)",
+        "File type (.zip)",
         validators=[
-            file.FileAllowed(["xls", "xlsx"], "You can use xls and xlsx"),
+            file.FileAllowed(["zip"], "You can use only zip"),
         ],
     )
-    category_choices = fields.SelectField("Category")
+    category = fields.SelectField("Category")
+    status = fields.SelectField("Status", choices=models.submit_flags.STATUS)

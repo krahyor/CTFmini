@@ -1,6 +1,6 @@
 from flask_mongoengine import MongoEngine
 from .users import User
-from .upload_data import Upload_data
+from .submit_flags import SubmitFlags
 from .categories import Category
 from .updates import UpdateInformation
 

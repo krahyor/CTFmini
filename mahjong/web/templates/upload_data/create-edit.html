@@ -11,16 +11,25 @@
     <form method="POST" class="ui form" enctype="multipart/form-data">
         {{ form.csrf_token }}
         <div class="form-group">
-            {{ renderer.render_field(form.name) }}
+            {{ renderer.render_field(form.problem_header) }}
         </div>
         <div class="field">
             {{ renderer.render_field(form.description) }}
         </div>
         <div class="field">
-            {{ renderer.render_select(form.category_choices) }}
+            {{ renderer.render_select(form.category) }}
         </div>
         <div class="field">
-            {{ renderer.render_field(form.uploaded_file) }}
+            {{ renderer.render_field(form.hint) }}
+        </div>
+        <div class="field">
+            {{ renderer.render_field(form.flag) }}
+        </div>
+        <div class="field">
+            {{ renderer.render_field(form.upload_file) }}
+        </div>
+        <div class="field">
+            {{ renderer.render_field(form.status) }}
         </div>
         <p></p>
         <button type="submit" class="ui primary button">Submit</button>

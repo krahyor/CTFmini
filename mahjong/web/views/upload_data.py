@@ -51,24 +51,24 @@ def index():
 @module.route("/<upload_data_id>/edit", methods=["GET", "POST"])
 @login_required
 def create_or_edit(upload_data_id):
-    upload_data = models.Upload_data.objects()
+    upload_data = models.SubmitFlags.objects()
     form = forms.upload_data.UploadDataForm()
     categories = models.Category.objects(status="active")
 
     if upload_data_id:
-        upload_data = models.Upload_data.objects.get(id=upload_data_id)
+        upload_data = models.SubmitFlags.objects.get(id=upload_data_id)
         form = forms.upload_data.UploadDataForm(obj=upload_data)
         upload_data.update_info.append(
             updater_info.create_update_information(current_user, request, "updated")
         )
 
-    form.category_choices.choices = [(i.id, i.name) for i in categories]
+    form.category.choices = [(i.id, i.name) for i in categories]
     if not form.validate_on_submit():
         print(form.errors)
         return render_template("/upload_data/create-edit.html", form=form)
 
     if not upload_data_id:
-        upload_data = models.Upload_data(
+        upload_data = models.SubmitFlags(
             upload_by=current_user._get_current_object(),
             last_updated_by=current_user._get_current_object(),
         )
@@ -77,8 +77,9 @@ def create_or_edit(upload_data_id):
         )
 
     form.populate_obj(upload_data)
-    category = models.Category.objects(id=form.category_choices.data).first()
+    category = models.Category.objects(id=form.category.data).first()
     upload_data.category = category
+
     if not upload_data_id:
         if form.uploaded_file.data:
             upload_data.upload_file.put(
@@ -86,7 +87,6 @@ def create_or_edit(upload_data_id):
                 filename=form.uploaded_file.data.filename,
                 content_type=form.uploaded_file.data.content_type,
             )
-
     else:
         if form.uploaded_file.data:
             upload_data.upload_file.replace(
@@ -97,7 +97,6 @@ def create_or_edit(upload_data_id):
 
     if form.uploaded_file.data:
         upload_data.upload_file_name = form.uploaded_file.data.filename
-
     upload_data.last_updated_by = current_user._get_current_object()
     upload_data.save()
 
