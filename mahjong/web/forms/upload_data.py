@@ -16,6 +16,7 @@ BaseUploadDataForm = model_form(
         "uploaded_date",
         "update_info",
         "problem_solvers",
+        "upload_file",
     ],
     field_args={
         "problem_header": {"label": "Problem Header"},

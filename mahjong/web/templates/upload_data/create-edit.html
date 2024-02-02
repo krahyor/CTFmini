@@ -6,7 +6,7 @@
     {% if 'edit' in request.path %}
     <h1>Update</h1>
     {%else%}
-    <h1>Upload</h1>
+    <h1>Create Flag</h1>
     {%endif%}
     <form method="POST" class="ui form" enctype="multipart/form-data">
         {{ form.csrf_token }}
@@ -20,16 +20,16 @@
             {{ renderer.render_select(form.category) }}
         </div>
         <div class="field">
+            {{ renderer.render_field(form.status) }}
+        </div>
+        <div class="field">
             {{ renderer.render_field(form.hint) }}
         </div>
         <div class="field">
             {{ renderer.render_field(form.flag) }}
         </div>
         <div class="field">
-            {{ renderer.render_field(form.upload_file) }}
-        </div>
-        <div class="field">
-            {{ renderer.render_field(form.status) }}
+            {{ renderer.render_field(form.uploaded_file) }}
         </div>
         <p></p>
         <button type="submit" class="ui primary button">Submit</button>
