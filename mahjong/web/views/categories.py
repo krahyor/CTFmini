@@ -25,8 +25,9 @@ module = Blueprint("categories", __name__, url_prefix="/categories")
 @module.route("/")
 @login_required
 def index():
+    categories = models.Category.objects()
 
-    return render_template("/categories/index.html")
+    return render_template("/categories/index.html", categories=categories)
 
 
 @module.route(

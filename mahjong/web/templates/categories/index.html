@@ -2,7 +2,55 @@
 {% import '/base/html-renderer.html' as renderer %}
 
 {% block content %}
+<div class="ui segment">
+
+    <h1 class="ui header">
+        Categories
+    </h1>
+
+</div>
+
+<div class="ui segment">
+
+    <a class="ui primary labeled icon button" href="{{url_for('categories.create_or_edit')}}">
+        <i class="add icon"></i>
+        Create Category
+    </a>
+    <table class="ui celled table">
+        <thead>
+            <tr>
+                <th>Category name</th>
+                <th>status</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+            <tr>
+                <td data-label="Name">{{ category.name }}</td>
+                <td data-label="Email">{{ category.status }}</td>
+                <td data-label="edit"><a href="{{url_for('upload_data.create_or_edit', category_id=category.id)}}"><i
+                            class="edit icon yellow"></i></a></td>
+                <td data-label="delete"><a onclick="showDeleteModal('{{ category.id }}')"><i
+                            class="trash icon red"></i></a>
+                </td>
+            </tr>
+            <div class="ui small modal {{category.id}}">
+                <div class="header">{{ ("Delete User") }}</div>
+                <div class="content">
+
+                    {#} <a class="ui right floated negative button" style="margin-bottom: 1em;"
+                        href="{{url_for('users.delete', user_id=user.id)}}">
+                        {{ ("Delete") }}</i>
+                    </a> #}
+                    <button class="ui right floated button" onclick="showDeleteModal()">{{ ("Cancel") }}</button>
+                </div>
+            </div>
+            {% endfor %}
+        </tbody>
+    </table>
 
 
-
+</div>
 {% endblock %}

@@ -43,3 +43,19 @@ def index():
         # upload_data=pagination["data"],
         # pagination=pagination,
     )
+
+
+@module.route("<submit_flag_id>/download_file", methods=["GET", "POST"])
+def download(submit_flag_id):
+    submit_flag = models.SubmitFlags.objects(id=submit_flag_id)
+    try:
+        submit_flag = models.SubmitFlags.objects(id=submit_flag_id).first()
+    except:
+        return abort(404)
+
+    res = send_file(
+        submit_flag.upload_file,
+        download_name=submit_flag.upload_file.filename,
+        mimetype=submit_flag.upload_file.content_type,
+    )
+    return res

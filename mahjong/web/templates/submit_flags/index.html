@@ -41,6 +41,8 @@
                             <h4 class="ui headers">
                                 Description : {{ submit_flag.description }}
                             </h4>
+                            <a href="{{url_for('submit_flags.download', submit_flag_id=submit_flag.id)}}">dowload
+                                file</a>
                             <div class="ui fluid action input">
                                 <input type="text" placeholder="flag">
                                 <div class="ui button">Submit</div>
