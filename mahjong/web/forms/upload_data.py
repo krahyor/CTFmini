@@ -17,12 +17,14 @@ BaseUploadDataForm = model_form(
         "update_info",
         "problem_solvers",
         "upload_file",
+        "status",
     ],
     field_args={
         "problem_header": {"label": "Problem Header"},
         "description": {"label": "Description"},
         "hint": {"label": "Hint"},
         "flag": {"label": "Flag"},
+        "point": {"label": "Point"},
     },
 )
 
@@ -35,4 +37,3 @@ class UploadDataForm(BaseUploadDataForm):
         ],
     )
     category = fields.SelectField("Category")
-    status = fields.SelectField("Status", choices=models.submit_flags.STATUS)
