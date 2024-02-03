@@ -25,24 +25,11 @@ from . import paginations
 module = Blueprint("upload_data", __name__, url_prefix="/upload_data")
 
 
-@module.route("/", methods=["GET", "POST"])
+@module.route("/")
 @login_required
 def index():
     submit_flags = models.SubmitFlags.objects()
-
-    # pagination = paginations.get_paginate(
-    # data=upload_data,
-    # items_per_page=25,
-    # )
-
-    return render_template(
-        "upload_data/index.html",
-        submit_flags=submit_flags,
-        # data_status=data_status,
-        # catagory_data=catagory_data,
-        # upload_data=pagination["data"],
-        # pagination=pagination,
-    )
+    return render_template("/upload_data/index.html", submit_flags=submit_flags)
 
 
 @module.route(

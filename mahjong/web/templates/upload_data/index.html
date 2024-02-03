@@ -3,65 +3,7 @@
 
 {% block content %}
 <div>
-    <div class="ui stackable four column grid">
-        <div class="row">
-            {% for submit_flag in submit_flags %}
-            <div class="column">
-                <div class="ui card">
-                    <div class="content">
-                        <div class="header">{{ submit_flag.problem_header }}</div>
-                    </div>
-                    <div class="content">
-                        <div class="ui small feed">
-                            <div class="content">
-                                <h5 class="ui sub header">Point : {{ submit_flag.point }}</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="content">
-                        <div class="ui small feed">
-                            <div class="content">
-                                <h5 class="ui sub header">Status : {{ submit_flag.status }}</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="content">
-                        <div class="ui small feed">
-                            <div class="content">
-                                <h5 class="ui sub header">Type : {{ submit_flag.category }}</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="extra content">
-                        <a class="ui primary button" onclick="showQuestion('{{ submit_flag.id }}')">Click</a>
-                    </div>
-                    <div class="ui small modal {{ submit_flag.id }}">
-                        <div class="header">{{ submit_flag.problem_header }}</div>
-                        <div class="content">
-                            <h4 class="ui headers">
-                                Description : {{ submit_flag.description }}
-                            </h4>
-                            <input type="text" placeholder="Flag">
-                            <a class="ui right floated negative button" style="margin-bottom: 1em;">
-                                Submit</i>
-                            </a>
-                            <button class="ui right floated button" onclick="showDeleteModal()">Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-
+    <a href="{{url_for('upload_data.create_or_edit')}}">upload data</a>
 </div>
 
-{% endblock %}
-{% block additional_js %}
-<script>
-    function showQuestion(submit_flag) {
-        submit_flag ? $('.ui.small.modal.' + submit_flag).modal('show') : $('.ui.small.modal').modal('hide')
-            ;
-    }
-</script>
 {% endblock %}

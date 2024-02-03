@@ -14,12 +14,11 @@
           </div>
         </a>
       </div>
-
       <a class="item" href="{{url_for('dashboards.index' )}}">Dashboard <i class="tv icon"></i></a>
-      {% if current_user.has_roles('admin') %}
-      <a class="item" href="{{url_for('upload_data.index')}}">Data Tables<i class="database icon"></i>
+      <a class="item" href="{{url_for('submit_flags.index')}}">Questions<i class="database icon"></i>
+        {% if current_user.has_roles('admin') %}
       </a>
-      <a class="item" href="{{url_for('upload_data.create_or_edit')}}">Upload Data <i class="cloud upload icon"></i>
+      <a class="item" href="{{url_for('upload_data.index')}}">Upload Data <i class="cloud upload icon"></i>
       </a>
       <a class="item" href="{{url_for('categories.index')}}">Categories<i class="file icon"></i>
       </a>
