@@ -35,6 +35,7 @@
         <th>Status</th>
         <th>Edit</th>
         <th>Delete</th>
+        <th>Recover</th>
       </tr>
     </thead>
     <tbody>
@@ -45,11 +46,12 @@
         <td data-label="Email">{{user.email}}</td>
         <td data-label="Phone">{{user.phone_number}}</td>
         <td data-label="Status">{{user.status}}</td>
-        <td data-label="edit"><a href="{{url_for('users.create_or_edit', user_id=user.id)}}"><i
+        <td data-label="Edit"><a href="{{url_for('users.create_or_edit', user_id=user.id)}}"><i
               class="edit icon yellow"></i></a>
         </td>
-        <td data-label="delete"><a onclick="showDeleteModal('{{ user.id }}')"><i class="trash icon red"></i></a> <a
-            href="{{ url_for('users.recover',user_id=user.id)}}"><i class="redo icon"></i></a>
+        <td data-label="Delete"><a onclick="showDeleteModal('{{ user.id }}')"><i class="trash icon red"></i></a>
+        </td>
+        <td data-label="Recover"><a href="{{ url_for('users.recover',user_id=user.id)}}"><i class="redo icon"></i></a>
         </td>
       </tr>
       <div class="ui small modal {{user.id}}">
