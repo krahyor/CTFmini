@@ -30,21 +30,19 @@
             <tr>
                 <td data-label="Name">{{ category.name }}</td>
                 <td data-label="Email">{{ category.status }}</td>
-                <td data-label="edit"><a href="{{url_for('upload_data.create_or_edit', category_id=category.id)}}"><i
+                <td data-label="edit"><a href="{{url_for('categories.create_or_edit', category_id=category.id)}}"><i
                             class="edit icon yellow"></i></a></td>
                 <td data-label="delete"><a onclick="showDeleteModal('{{ category.id }}')"><i
                             class="trash icon red"></i></a>
                 </td>
             </tr>
             <div class="ui small modal {{category.id}}">
-                <div class="header">{{ ("Delete User") }}</div>
+                <div class="header"> You want to delete category : {{ category.name }}</div>
                 <div class="content">
-
-                    {#} <a class="ui right floated negative button" style="margin-bottom: 1em;"
-                        href="{{url_for('users.delete', user_id=user.id)}}">
+                    <a class="ui right floated negative button" style="margin-bottom: 1em;"
+                        href="{{url_for('categories.delete', category_id=category.id)}}">
                         {{ ("Delete") }}</i>
-                    </a> #}
-                    <button class="ui right floated button" onclick="showDeleteModal()">{{ ("Cancel") }}</button>
+                    </a>
                 </div>
             </div>
             {% endfor %}
@@ -53,4 +51,12 @@
 
 
 </div>
+{% endblock %}
+{% block additional_js %}
+<script>
+    function showDeleteModal(category) {
+        category ? $('.ui.small.modal.' + category).modal('show') : $('.ui.small.modal').modal('hide')
+            ;
+    }
+</script>
 {% endblock %}
