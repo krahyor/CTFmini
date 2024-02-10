@@ -10,16 +10,12 @@ from mahjong import models
 BaseRegistrationForm = model_form(
     models.User,
     FlaskForm,
-    exclude=[
-        "created_date",
-        "updated_date",
-        "last_login_date",
-        "roles",
-    ],
+    exclude=["created_date", "updated_date", "last_login_date", "roles", "score"],
     field_args={
         "username": {"label": "Username"},
         "first_name": {"label": "Firstname"},
         "last_name": {"label": "Lastname"},
+        "team": {"label": "Team"},
     },
 )
 

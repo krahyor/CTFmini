@@ -7,10 +7,13 @@
     <h1>{{"Edit" if "edit" in request.path else "Create"}} User</h1>
     <div class="ui form">
       {{ form.csrf_token }}
-      {% if "edit" not in request.path %}
+      <div class="form-group">
+        {{ renderer.render_field(form.team) }}
+      </div>
       <div class="form-group">
         {{ renderer.render_field(form.username) }}
       </div>
+      {% if "edit" not in request.path %}
       <div class="field">
         {{ renderer.render_field(form.password) }}
       </div>

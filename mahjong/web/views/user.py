@@ -64,6 +64,7 @@ def create_or_edit(user_id):
         )
 
     if not user_id:
+        team = form.team.data
         username = form.username.data
         first_name = form.first_name.data
         last_name = form.last_name.data
@@ -73,6 +74,7 @@ def create_or_edit(user_id):
             password=password,
             first_name=first_name,
             last_name=last_name,
+            team=team,
             email=form.email.data,
             last_login_date=datetime.datetime.now(),
             status="unregistered",
@@ -101,3 +103,16 @@ def delete(user_id):
     return redirect(
         url_for("users.index"),
     )
+
+
+@module.route("/<user_id>/recover", methods=["GET", "POST"])
+@login_required
+def recover(user_id):
+    user = models.User.objects.get(id=user_id)
+    user.status = "unregistered"
+    user.password = bcrypt.generate_password_hash("admin")
+    user.update_info.append(
+        updater_info.create_update_information(current_user, request, "recover")
+    )
+    user.save()
+    return redirect(url_for("users.index"))
