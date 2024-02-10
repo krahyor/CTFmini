@@ -33,7 +33,9 @@
                 <td data-label="Name">{{ submit_flag.problem_header }}</td>
                 <td data-label="Email">{{ submit_flag.category }}</td>
                 <td data-label="Phone">{{ submit_flag.point }}</td>
-                <td data-label="File name">{{ submit_flag.upload_file.filename }}</td>
+                <td data-label="File name">{{ submit_flag.upload_file.filename }}
+                    ({{ '{:.2f}'.format(submit_flag.upload_file.length/100000 , 2) }} MB)
+                </td>
                 <td data-label="edit"><a
                         href="{{url_for('upload_data.create_or_edit', submit_flag_id=submit_flag.id)}}"><i
                             class="edit icon yellow"></i></a></td>
@@ -44,11 +46,10 @@
             <div class="ui small modal {{submit_flag.id}}">
                 <div class="header">{{ ("Delete User") }}</div>
                 <div class="content">
-
-                    {#} <a class="ui right floated negative button" style="margin-bottom: 1em;"
-                        href="{{url_for('users.delete', user_id=user.id)}}">
+                    <a class="ui right floated negative button" style="margin-bottom: 1em;"
+                        href="{{url_for('upload_data.delete', submit_flag_id=submit_flag.id)}}">
                         {{ ("Delete") }}</i>
-                    </a> #}
+                    </a>
                     <button class="ui right floated button" onclick="showDeleteModal()">{{ ("Cancel") }}</button>
                 </div>
             </div>
