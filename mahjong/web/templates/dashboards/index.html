@@ -1,6 +1,26 @@
 {% extends "base/default-page.html" %}
 
 {% block content %}
+<div>
+    <table class="ui inverted blue table">
+        <thead>
+            <tr>
+                <th>Rating</th>
+                <th>Team</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ user.team }}</td>
+                <td>{{ user.score }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
 
 {% endblock %}

@@ -22,5 +22,5 @@ module = Blueprint("dashboards", __name__, url_prefix="/dashboard")
 @module.route("/", methods=["GET", "POST"])
 @login_required
 def index():
-
-    return render_template("dashboards/index.html")
+    users = models.User.objects(roles=["user"]).order_by("-score")
+    return render_template("dashboards/index.html", users=users)

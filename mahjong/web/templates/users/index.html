@@ -28,6 +28,7 @@
   <table class="ui celled table">
     <thead>
       <tr>
+        <th>Team</th>
         <th>Name</th>
         <th>Email</th>
         <th>Phone</th>
@@ -39,13 +40,16 @@
     <tbody>
       {% for user in users %}
       <tr>
+        <td data-label="Name">{{user.team}}</td>
         <td data-label="Name">{{user.first_name}} {{user.last_name}}</td>
         <td data-label="Email">{{user.email}}</td>
         <td data-label="Phone">{{user.phone_number}}</td>
         <td data-label="Status">{{user.status}}</td>
         <td data-label="edit"><a href="{{url_for('users.create_or_edit', user_id=user.id)}}"><i
-              class="edit icon yellow"></i></a></td>
-        <td data-label="delete"><a onclick="showDeleteModal('{{ user.id }}')"><i class="trash icon red"></i></a>
+              class="edit icon yellow"></i></a>
+        </td>
+        <td data-label="delete"><a onclick="showDeleteModal('{{ user.id }}')"><i class="trash icon red"></i></a> <a
+            href="{{ url_for('users.recover',user_id=user.id)}}"><i class="redo icon"></i></a>
         </td>
       </tr>
       <div class="ui small modal {{user.id}}">
