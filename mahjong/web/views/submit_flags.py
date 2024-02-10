@@ -28,7 +28,7 @@ module = Blueprint("submit_flags", __name__, url_prefix="/submit_flags")
 @module.route("/", methods=["GET", "POST"])
 @login_required
 def index():
-    submit_flags = models.SubmitFlags.objects()
+    submit_flags = models.FlagQuestion.objects()
 
     # pagination = paginations.get_paginate(
     # data=upload_data,
@@ -47,9 +47,9 @@ def index():
 
 @module.route("<submit_flag_id>/download_file", methods=["GET", "POST"])
 def download(submit_flag_id):
-    submit_flag = models.SubmitFlags.objects(id=submit_flag_id)
+    submit_flag = models.FlagQuestion.objects(id=submit_flag_id)
     try:
-        submit_flag = models.SubmitFlags.objects(id=submit_flag_id).first()
+        submit_flag = models.FlagQuestion.objects(id=submit_flag_id).first()
     except:
         return abort(404)
 

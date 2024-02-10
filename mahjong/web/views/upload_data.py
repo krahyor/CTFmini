@@ -28,7 +28,7 @@ module = Blueprint("upload_data", __name__, url_prefix="/upload_data")
 @module.route("/")
 @login_required
 def index():
-    submit_flags = models.SubmitFlags.objects()
+    submit_flags = models.FlagQuestion.objects()
     return render_template("/upload_data/index.html", submit_flags=submit_flags)
 
 
@@ -40,13 +40,13 @@ def index():
 @module.route("/<upload_data_id>/edit", methods=["GET", "POST"])
 @login_required
 def create_or_edit(upload_data_id):
-    upload_data = models.SubmitFlags.objects()
-    form = forms.upload_data.UploadDataForm()
+    upload_data = models.FlagQuestion.objects()
+    form = forms.flags.UploadDataForm()
     categories = models.Category.objects(status="active")
 
     if upload_data_id:
-        upload_data = models.SubmitFlags.objects.get(id=upload_data_id)
-        form = forms.upload_data.UploadDataForm(obj=upload_data)
+        upload_data = models.FlagQuestion.objects.get(id=upload_data_id)
+        form = forms.flags.UploadDataForm(obj=upload_data)
         upload_data.update_info.append(
             updater_info.create_update_information(current_user, request, "updated")
         )
@@ -57,7 +57,7 @@ def create_or_edit(upload_data_id):
         return render_template("/upload_data/create-edit.html", form=form)
 
     if not upload_data_id:
-        upload_data = models.SubmitFlags(
+        upload_data = models.FlagQuestion(
             upload_by=current_user._get_current_object(),
             last_updated_by=current_user._get_current_object(),
         )
@@ -92,15 +92,10 @@ def create_or_edit(upload_data_id):
     return redirect(url_for("upload_data.index"))
 
 
-@module.route("<upload_data_id>/delete", methods=["GET", "POST"])
-@login_required
-def delete(upload_data_id):
-    upload_data = models.Upload_data.objects.get(id=upload_data_id)
-    upload_data.status = "disactive"
-    upload_data.update_info.append(
-        updater_info.create_update_information(current_user, request, "deleted")
-    )
-    upload_data.save()
+@module.route("<submit_flag_id>/delete", methods=["GET", "POST"])
+def delete(submit_flag_id):
+    submit_flag = models.FlagQuestion.objects.get(id=submit_flag_id)
+    submit_flag.delete()
     return redirect(url_for("upload_data.index"))
 
 

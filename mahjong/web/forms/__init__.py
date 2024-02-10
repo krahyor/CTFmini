@@ -1,7 +1,7 @@
-from . import accounts, categories, upload_data
+from . import accounts, categories, flags
 
 __all__ = [
     accounts,
     categories,
-    upload_data,
+    flags,
 ]

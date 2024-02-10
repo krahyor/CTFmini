@@ -6,7 +6,7 @@ from wtforms import fields, widgets, validators
 from mahjong import models
 
 BaseUploadDataForm = model_form(
-    models.SubmitFlags,
+    models.FlagQuestion,
     FlaskForm,
     exclude=[
         "upload_by",

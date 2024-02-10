@@ -3,7 +3,7 @@ import datetime
 from .updates import UpdateInformation
 
 
-class SubmitFlags(me.Document):
+class FlagQuestion(me.Document):
 
     problem_header = me.StringField(required=True, max_length=256)  # หัวข้อโจทย์
     description = me.StringField()  # รายละเอียด
