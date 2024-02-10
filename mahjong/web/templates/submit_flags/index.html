@@ -38,24 +38,28 @@
                     <div class="ui small modal {{ submit_flag.id }}">
                         <div class="header">{{ submit_flag.problem_header }}</div>
                         <div class="content">
-                            <h4 class="ui headers">
-                                Description : {{ submit_flag.description }}
-                            </h4>
-                            <a href="{{url_for('submit_flags.download', submit_flag_id=submit_flag.id)}}"> Dowload
-                                : {{
-                                submit_flag.upload_file_name }} ({{
-                                '{:.2f}'.format(submit_flag.upload_file.length/1048576 ) }} MB) </a>
-                            <div class="ui fluid action input">
-                                <input type="text" placeholder="flag">
-                                <div class="ui button">Submit</div>
-                            </div>
+                            <form method="GET">
+                                <h4 class="ui headers">
+                                    Description : {{ submit_flag.description }}
+                                </h4>
+                                <a href="{{url_for('submit_flags.download', submit_flag_id=submit_flag.id)}}"> Dowload
+                                    : {{
+                                    submit_flag.upload_file_name }} ({{
+                                    '{:.2f}'.format(submit_flag.upload_file.length/1048576 ) }} MB) </a>
+                                <div class="ui fluid action input">
+                                    <input name="flag" id="ssss" type="text" placeholder="flag">
+                                    <input name="submit_flag_id" style="display: None;" type="text" placeholder=""
+                                        value="{{submit_flag.id}}">
+                                    <button type="submit" class="ui button">Submit</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-            {% endfor %}
         </div>
+        {% endfor %}
     </div>
+</div>
 
 </div>
 

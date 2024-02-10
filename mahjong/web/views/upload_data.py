@@ -14,6 +14,7 @@ from flask import (
     abort,
 )
 
+from werkzeug.security import generate_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
 from mahjong.utils import updater_info
 from mahjong import models
@@ -86,6 +87,7 @@ def create_or_edit(upload_data_id):
 
     if form.uploaded_file.data:
         upload_data.upload_file_name = form.uploaded_file.data.filename
+    upload_data.flag = generate_password_hash(form.flag.data)
     upload_data.last_updated_by = current_user._get_current_object()
     upload_data.save()
 
@@ -93,6 +95,7 @@ def create_or_edit(upload_data_id):
 
 
 @module.route("<submit_flag_id>/delete", methods=["GET", "POST"])
+@login_required
 def delete(submit_flag_id):
     submit_flag = models.FlagQuestion.objects.get(id=submit_flag_id)
     submit_flag.delete()
@@ -100,6 +103,7 @@ def delete(submit_flag_id):
 
 
 @module.route("<upload_data_id>/download_file", methods=["GET", "POST"])
+@login_required
 def download(upload_data_id):
     upload_data = models.Upload_data.objects(id=upload_data_id)
     try:
