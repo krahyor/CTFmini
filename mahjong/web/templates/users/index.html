@@ -5,7 +5,6 @@
 <style>
   .ui.segment {
     background-color: rgb(10, 10, 10); 
-    border: 1px solid rgb(123, 123, 123);
     border-radius: 5px;
   }
 
@@ -23,7 +22,7 @@
     color: black; 
   }
 </style>
-<div class="ui segment">
+<div class="ui segment" style="border: 1px solid rgb(123, 123, 123);">
 
   <h1 class="ui header">
     Users
@@ -31,7 +30,7 @@
 
 </div>
 
-<div class="ui segment">
+<div class="ui segment" style="border: 1px solid rgb(123, 123, 123);" >
 
   <a class="ui primary labeled icon button blue-button" href="{{url_for('users.create_or_edit')}}">
     <i class="add icon"></i>
