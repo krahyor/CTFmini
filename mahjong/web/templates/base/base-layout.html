@@ -7,8 +7,10 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="{{ url_for('static', filename='node_modules/jquery/dist/jquery.min.js') | add_date_url }}"></script>
-  <script src="{{ url_for('static', filename='node_modules/fomantic-ui-css/semantic.min.js') | add_date_url }}"></script>
-  <link rel="stylesheet" type="text/css" media="all" href="{{ url_for('static', filename='node_modules/fomantic-ui-css/semantic.min.css') | add_date_url }}">
+  <script
+    src="{{ url_for('static', filename='node_modules/fomantic-ui-css/semantic.min.js') | add_date_url }}"></script>
+  <link rel="stylesheet" type="text/css" media="all"
+    href="{{ url_for('static', filename='node_modules/fomantic-ui-css/semantic.min.css') | add_date_url }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') | add_date_url }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/color.css') | add_date_url }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/color.css') | add_date_url }}">
@@ -16,14 +18,15 @@
   {% block additional_head %}{% endblock %}
 
   <title>
-    {% block title %} 
-      {{ config.get('APP_TITLE') }}
+    {% block title %}
+    {{ config.get('APP_TITLE') }}
     {% endblock %}
   </title>
 </head>
 
-<body >
-  <div class="pusher">
+<body>
+  <div class="pusher"
+    style="background-image: url('https://static.vecteezy.com/system/resources/previews/014/744/947/non_2x/abstract-green-neon-light-line-geometric-cyber-on-grey-black-circuit-design-modern-futuristic-technology-background-vector.jpg');background-size:auto;">
     {% block body %}{% endblock body %}
   </div>
 </body>
