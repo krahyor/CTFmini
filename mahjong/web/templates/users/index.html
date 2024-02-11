@@ -2,6 +2,27 @@
 {% import '/base/html-renderer.html' as renderer %}
 
 {% block content %}
+<style>
+  .ui.segment {
+    background-color: rgb(10, 10, 10); 
+    border: 1px solid rgb(123, 123, 123);
+    border-radius: 5px;
+  }
+
+  .ui.header {
+    color: rgb(0, 255, 35);
+  }
+  
+  .blue-button {
+    background-color: rgb(0, 120, 255); 
+    color: white; 
+  }
+  
+  .ui.primary.labeled.icon.button {
+    background-color: rgb(0, 255, 35); 
+    color: black; 
+  }
+</style>
 <div class="ui segment">
 
   <h1 class="ui header">
@@ -12,7 +33,7 @@
 
 <div class="ui segment">
 
-  <a class="ui primary labeled icon button" href="{{url_for('users.create_or_edit')}}">
+  <a class="ui primary labeled icon button blue-button" href="{{url_for('users.create_or_edit')}}">
     <i class="add icon"></i>
     Create user
   </a>
@@ -25,7 +46,7 @@
   #}
 
 
-  <table class="ui celled table">
+  <table class="ui selectable inverted table">
     <thead>
       <tr>
         <th>Team</th>

@@ -8,10 +8,10 @@
 <div class="field">
   {% if field.flags.required %}
   {% set requirement_label = ' <span class="ui red text">*</span> <span
-    style="color: grey; font-weight: 400">(required)</span>' %}
-  {{ field.label(field.label.text + requirement_label | safe) }}
+    style="color: rgb(251, 251, 251); font-weight: 400">(required)</span>' %}
+  {{ field.label(field.label.text + requirement_label | safe , style='color: rgb(251, 251, 251);') }}
   {% else %}
-  {{ field.label }}
+  {{ field.label(style='color: rgb(251, 251, 251);') }}
   {% endif %}
   {{ field(class_=style) }}
 </div>
