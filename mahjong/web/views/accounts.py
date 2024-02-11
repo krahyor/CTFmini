@@ -33,10 +33,12 @@ def index():
 def register():
     form = forms.accounts.RegistrationForm()
     if not form.validate_on_submit():
+        print(form.errors)
         return render_template("accounts/register.html", form=form)
 
     if oauth.create_user(form):
         return redirect(url_for("accounts.login"))
+
     return redirect(url_for("accounts.login", login_status="failed"))
 
 
@@ -99,59 +101,3 @@ def setup_password(user_id):
     user.save()
 
     return redirect(url_for("accounts.login"))
-
-
-# @module.route("/login/<name>")
-# def login_oauth(name):
-#     client = oauth2.oauth2_client
-
-#     scheme = request.environ.get("HTTP_X_FORWARDED_PROTO", "http")
-#     redirect_uri = url_for(
-#         "accounts.authorized_oauth", name=name, _external=True, _scheme=scheme
-#     )
-#     response = None
-#     if name == "psu":
-#         response = client.psu.authorize_redirect(redirect_uri)
-#     elif name == "engpsu":
-#         response = client.engpsu.authorize_redirect(redirect_uri)
-#     return response
-
-# @module.route("/auth/<name>")
-# def authorized_oauth(name):
-#     client = oauth2.oauth2_client
-#     remote = None
-#     try:
-#         if name == "psu":
-#             remote = client.psu
-#         elif name == "engpsu":
-#             remote = client.engpsu
-
-#         token = remote.authorize_access_token()
-
-#     except Exception as e:
-#         print("autorize access error =>", e)
-#         return redirect(url_for("accounts.login"))
-
-#     session["oauth_provider"] = name
-#     return oauth2.handle_authorized_oauth2(remote, token)
-
-# @module.route("/logout")
-# @login_required
-# def logout():
-#     name = session.get("oauth_provider")
-#     logout_user()
-#     session.clear()
-
-#     client = oauth2.oauth2_client
-#     remote = None
-#     logout_url = None
-#     if name == "psu":
-#         remote = client.psu
-#         logout_url = f"{ remote.server_metadata.get('end_session_endpoint') }?redirect={ request.scheme }://{ request.host }"
-#     elif name == "engpsu":
-#         remote = client.engpsu
-
-#     if logout_url:
-#         return redirect(logout_url)
-
-#     return redirect(url_for("site.index"))
