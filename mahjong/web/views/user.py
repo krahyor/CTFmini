@@ -65,12 +65,12 @@ def create_or_edit(user_id):
     check_user = models.User.objects(username=form.username.data)
     check_email = models.User.objects(email=form.email.data)
 
-    if check_user:
+    if check_user and not "edit" in request.path:
         msg_error = "This user is already in use"
         return render_template(
             "/users/create-edit.html", form=form, user=user, msg_error=msg_error
         )
-    if check_email:
+    if check_email and not "edit" in request.path:
         msg_error = "This email is already in use"
         return render_template(
             "/users/create-edit.html", form=form, user=user, msg_error=msg_error
