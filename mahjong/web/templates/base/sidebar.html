@@ -13,20 +13,20 @@
       </div>
       <div style="background-color: rgb(0, 255, 35); width: 100%; height: 1px"></div>
       <a class="item" href="{{url_for('dashboards.index' )}}">
-        Dashboard <i class="tv icon"></i>
+        Dashboard <i class="trophy icon"></i>
       </a>
       <div style="background-color: rgb(0, 255, 35); width: 100%; height: 1px"></div>
       <a class="item" href="{{url_for('submit_flags.index')}}">
-        Questions<i class="database icon"></i>
+        Questions<i class="flag checkered icon"></i>
         {% if current_user.has_roles('admin') %}
       </a>
       <div style="background-color: rgb(0, 255, 35); width: 100%; height: 1px"></div>
       <a class="item" href="{{url_for('upload_data.index')}}">
-        Upload Data <i class="cloud upload icon"></i>
+        Upload Questions <i class="chart pie icon"></i>
       </a>
       <div style="background-color: rgb(0, 255, 35); width: 100%; height: 1px"></div>
       <a class="item" href="{{url_for('categories.index')}}">
-        Categories<i class="file icon"></i>
+        Categories<i class="folder open icon"></i>
       </a>
       <div style="background-color: rgb(0, 255, 35); width: 100%; height: 1px"></div>
       <a class="item" href="{{url_for('users.index' )}}">

@@ -33,3 +33,7 @@ class FlagQuestion(me.Document):
     def get_uploaded_date(self):
         uploaded_datetime = self.uploaded_date.date().strftime("%d/%m/%Y")
         return uploaded_datetime
+
+    def get_problem_solvers(self):
+        value = len(self.problem_solvers)
+        return value
