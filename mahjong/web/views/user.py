@@ -44,6 +44,7 @@ def index():
 def create_or_edit(user_id):
     form = forms.accounts.RegistrationForm()
     user = models.User.objects()
+    msg_error = ""
 
     if user_id:
         user = models.User.objects.get(id=user_id)
@@ -58,9 +59,21 @@ def create_or_edit(user_id):
         user.username = form.username.data
         print(form.errors)
         return render_template(
-            "/users/create-edit.html",
-            form=form,
-            user=user,
+            "/users/create-edit.html", form=form, user=user, msg_error=msg_error
+        )
+
+    check_user = models.User.objects(username=form.username.data)
+    check_email = models.User.objects(email=form.email.data)
+
+    if check_user:
+        msg_error = "This user is already in use"
+        return render_template(
+            "/users/create-edit.html", form=form, user=user, msg_error=msg_error
+        )
+    if check_email:
+        msg_error = "This email is already in use"
+        return render_template(
+            "/users/create-edit.html", form=form, user=user, msg_error=msg_error
         )
 
     if not user_id:

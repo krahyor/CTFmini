@@ -28,25 +28,13 @@
       <div class="form-group">
         {{ renderer.render_field(form.email) }}
       </div>
-      <p></p>
-      {#{% if "edit" in request.path %}
-      <a class="ui primary button" onclick="showDeleteModal('edit')">Submit</a>
-      <div class="ui small modal edit">
-        <div class="header">{{ ("Edit User") }}</div>
-        <div class="content">
-          <h4 class="ui headers">
-            {{ ("Are you sure you want to edit") }} <span class="ui red text">{{ user.first_name }} {{ user.last_name
-              }}</span> {{
-            ("user?") }}
-          </h4>
-          <button type="submit" class="ui right floated primary button" style="margin-bottom: 1em;">Submit</button>
-          <a class="ui right floated button" onclick="showDeleteModal()">{{ ("Cancel") }}</a>
-        </div>
+      {% if msg_error %}
+      <div class="ui negative message">
+        <div class="header">{{ msg_error }}</div>
       </div>
-      {% else %}#}
+      {% endif %}
+      <p></p>
       <button type="submit" class="ui primary button">Submit</button>
-      {#{% endif %}#}
-
     </div>
   </div>
 </form>
