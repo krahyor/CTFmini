@@ -19,24 +19,32 @@
     .table-container {
         margin-bottom: 20px;
     }
+
+    /* Add a custom class for left-aligning score */
+    .left-aligned {
+        text-align: left;
+    }
 </style>
 
 <div class="dashboard-box">
     DASHBOARD
 </div>
 <div class="table-container">
-    <table class="ui selectable inverted table">
+    <table class="ui inverted table">
         <thead>
-            <th style="color: rgb(0, 255, 35);">Rating</th>
-            <th style="color: rgb(0, 255, 35);">Team</th>
-            <th class="right aligned" style="color:rgb(0, 255, 35);">Score</th>
+            <tr>
+                <th scope="col" style="color: rgb(0, 255, 35);">Rating</th>
+                <th scope="col" style="color: rgb(0, 255, 35);">Team</th>
+                <th scope="col" class="left-aligned" style="color: rgb(0, 255, 35);">Score</th>
+            </tr>
         </thead>
         <tbody>
             {% for user in users %}
             <tr>
                 <td>{{ loop.index }}</td>
                 <td>{{ user.team }}</td>
-                <td class="right aligned">{{ user.score }}</td>
+                <!-- Add the left-aligned class to align score data to the left -->
+                <td class="left-aligned">{{ user.score }}</td>
             </tr>
             {% endfor %}
         </tbody>
