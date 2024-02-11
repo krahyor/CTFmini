@@ -21,14 +21,23 @@
                     <div class="content">
                         <div class="ui small feed">
                             <div class="content">
-                                <h5 class="ui sub header">Status : {{ submit_flag.status }}</h5>
+                                <h5 class="ui sub header">Type : {{ submit_flag.category }}</h5>
                             </div>
                         </div>
                     </div>
+                    {% if current_user.team in submit_flag.problem_solvers %}
                     <div class="content">
                         <div class="ui small feed">
                             <div class="content">
-                                <h5 class="ui sub header">Type : {{ submit_flag.category }}</h5>
+                                <h5 class="ui sub header">Status : Suscess</h5>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="content">
+                        <div class="ui small feed">
+                            <div class="content">
+                                <h5 class="ui sub header">Status : Failed</h5>
                             </div>
                         </div>
                     </div>
@@ -55,6 +64,7 @@
                         </div>
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
         {% endfor %}
