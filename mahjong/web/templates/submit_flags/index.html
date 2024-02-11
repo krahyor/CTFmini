@@ -2,78 +2,100 @@
 {% import '/base/html-renderer.html' as renderer %}
 
 {% block content %}
-<div>
-    <div class="ui stackable four column grid">
-        <div class="row">
-            {% for submit_flag in submit_flags %}
-            <div class="column">
-                <div class="ui card">
-                    <div class="content">
-                        <div class="header">{{ submit_flag.problem_header }}</div>
-                    </div>
-                    <div class="content">
-                        <div class="ui small feed">
-                            <div class="content">
-                                <h5 class="ui sub header">Point : {{ submit_flag.point }}</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="content">
-                        <div class="ui small feed">
-                            <div class="content">
-                                <h5 class="ui sub header">Type : {{ submit_flag.category }}</h5>
-                            </div>
-                        </div>
-                    </div>
-                    {% if current_user.team in submit_flag.problem_solvers %}
-                    <div class="content">
-                        <div class="ui small feed">
-                            <div class="content">
-                                <h5 class="ui sub header">Status : Suscess</h5>
-                            </div>
-                        </div>
-                    </div>
-                    {% else %}
-                    <div class="content">
-                        <div class="ui small feed">
-                            <div class="content">
-                                <h5 class="ui sub header">Status : Failed</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="extra content">
-                        <a class="ui primary button" onclick="showQuestion('{{ submit_flag.id }}')">Click</a>
-                    </div>
-                    <div class="ui small modal {{ submit_flag.id }}">
-                        <div class="header">{{ submit_flag.problem_header }}</div>
+<style>
+    .ui.card {
+        font-size: 20px;
+        font-family: monospace;
+        margin-bottom: 20px;
+        width: 200%;
+        background-color: rgb(0, 0, 0);
+        color: black !important;
+
+    }
+    .ui.card .content {
+        padding: 1em;
+    }
+    .ui.card .content h5.ui.sub.header {
+        margin-top: 0px;
+    }
+    .ui.card .extra.content {
+        display: flex;
+        justify-content: flex-end;
+    }
+    .ui.modal {
+        max-width: 60%;
+        margin: auto;
+    }
+    .content {
+        font-size: 25px ;
+    }
+    .ui.primary.button {
+        width: 200%;
+        font-size: 18px;
+    }
+</style>
+
+<div class="ui stackable four column grid">
+    {% for submit_flag in submit_flags %}
+        <div class="four wide column">
+            <div class="ui card">
+                <div class="content">
+                    <div style="display: flex; justify-content: space-between;">
+                        <div class="header" style='color: rgb(251, 251, 251) ;'>{{ submit_flag.problem_header }}</div>
+                        <div class="solve" style="color: rgb(251, 251, 251);">solve</div>
+                    </div>                       
+                </div>
+                <div style="background-color: rgb(0, 255, 35); width: 100%; height: 1px"></div>
+                <div class="content">
+                    <div class="ui small feed">
                         <div class="content">
-                            <form method="GET">
-                                <h4 class="ui headers">
-                                    Description : {{ submit_flag.description }}
-                                </h4>
-                                <a href="{{url_for('submit_flags.download', submit_flag_id=submit_flag.id)}}"> Dowload
-                                    : {{
-                                    submit_flag.upload_file_name }} ({{
-                                    '{:.2f}'.format(submit_flag.upload_file.length/1048576 ) }} MB) </a>
-                                <div class="ui fluid action input">
-                                    <input name="flag" id="ssss" type="text" placeholder="flag">
-                                    <input name="submit_flag_id" style="display: None;" type="text" placeholder=""
-                                        value="{{submit_flag.id}}">
-                                    <button type="submit" class="ui button">Submit</button>
-                            </form>
+                            <h5 class="ui sub header" style='color: rgb(251, 251, 251);'>Point: {{ submit_flag.point }}</h5>
+                            <h5 class="ui sub header" style='color: rgb(251, 251, 251);'>Type: {{ submit_flag.category }}</h5>
                         </div>
                     </div>
                 </div>
-                {% endif %}
+                <div style="background-color: rgb(0, 255, 35); width: 100%; height: 1px"></div>
+                <div class="content">
+                    {% if current_user.team in submit_flag.problem_solvers %}
+                        <div class="ui small feed">
+                            <div class="content">
+                                <h5 class="ui sub header" style='color: rgb(251, 251, 251);'>Status: Success</h5>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <a class="ui primary button" >Success</a>
+                        </div>
+                    {% else %}
+                        <div class="ui small feed">
+                            <div class="content">
+                                <h5 class="ui sub header" style='color: rgb(251, 251, 251);'>Status: Failed</h5>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <a class="ui primary button" style="background-color: rgb(0, 255, 35); color: black;" onclick="showQuestion('{{ submit_flag.id }}')">Answer</a>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="ui small modal {{ submit_flag.id }}">
+                    <div class="header">{{ submit_flag.problem_header }}</div>
+                    <div class="content">
+                        <form method="GET">
+                            <h4 class="ui headers">Description: {{ submit_flag.description }}</h4>
+                            <a href="{{url_for('submit_flags.download', submit_flag_id=submit_flag.id)}}">Download: {{ submit_flag.upload_file_name }} ({{ '{:.2f}'.format(submit_flag.upload_file.length/1048576 ) }} MB)</a>
+                            <div class="ui fluid action input">
+                                <input name="flag" id="ssss" type="text" placeholder="flag">
+                                <input name="submit_flag_id" style="display: none;" type="text" value="{{submit_flag.id}}">
+                                <button type="submit" class="ui big button">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-        {% endfor %}
-    </div>
+    {% endfor %}
 </div>
-
-</div>
-
 {% endblock %}
+
 {% block additional_js %}
 <script>
     function showQuestion(submit_flag) {
