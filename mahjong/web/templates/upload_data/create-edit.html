@@ -2,7 +2,22 @@
 {% import '/base/html-renderer.html' as renderer %}
 
 {% block content %}
-<div class="ui segment">
+<style>
+    .ui.segment {
+      color: rgb(0, 255, 35);
+      background-color: rgb(10, 10, 10); 
+      border-radius: 5px;
+    }
+    .ui.primary.button {
+      background-color: rgb(0, 255, 35); /* Change this to the desired color */
+      color: #000000; /* Change this to the desired text color */
+    }
+    .field {
+      background-color: rgb(10, 10, 10); 
+      
+    }
+  </style>
+<div class="ui segment" style="border: 1px solid rgb(123, 123, 123);">
     {% if 'edit' in request.path %}
     <h1>Update</h1>
     {%else%}

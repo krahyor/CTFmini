@@ -2,7 +2,27 @@
 {% import '/base/html-renderer.html' as renderer %}
 
 {% block content %}
-<div class="ui segment">
+<style>
+    .ui.segment {
+      background-color: rgb(10, 10, 10); 
+      border-radius: 5px;
+    }
+  
+    .ui.header {
+      color: rgb(0, 255, 35);
+    }
+    
+    .blue-button {
+      background-color: rgb(0, 120, 255); 
+      color: white; 
+    }
+    
+    .ui.primary.labeled.icon.button {
+      background-color: rgb(0, 255, 35); 
+      color: black; 
+    }
+  </style>
+<div class="ui segment" style="border: 1px solid rgb(123, 123, 123);">
 
     <h1 class="ui header">
         Upload DATA
@@ -10,13 +30,13 @@
 
 </div>
 
-<div class="ui segment">
+<div class="ui segment" style="border: 1px solid rgb(123, 123, 123);">
 
     <a class="ui primary labeled icon button" href="{{url_for('upload_data.create_or_edit')}}">
         <i class="add icon"></i>
         Create Question
     </a>
-    <table class="ui celled table">
+    <table class="ui selectable inverted table">
         <thead>
             <tr>
                 <th>Problem Header</th>
