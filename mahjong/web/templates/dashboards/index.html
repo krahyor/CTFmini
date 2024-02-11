@@ -2,14 +2,6 @@
 
 {% block content %}
 <style>
-    td {
-        font-family: monospace;
-        font-size: 16px;
-    }
-    th {
-        font-family: monospace;
-        font-size: 20px;
-    }
     .dashboard-box {
         color: rgb(0, 255, 35);
         width: 200px;
@@ -18,13 +10,14 @@
         border: 1px solid rgb(123, 123, 123);
         border-radius: 5px;
         text-align: center;
-        line-height: 50px; 
+        line-height: 50px;
         font-family: monospace;
         font-size: 20px;
-        margin-bottom: 20px; 
+        margin-bottom: 20px;
     }
+
     .table-container {
-        margin-bottom: 20px; 
+        margin-bottom: 20px;
     }
 </style>
 
@@ -36,7 +29,7 @@
         <thead>
             <th style="color: rgb(0, 255, 35);">Rating</th>
             <th style="color: rgb(0, 255, 35);">Team</th>
-            <th class="right aligned" style="color:rgb(0, 255, 35);" >Score</th>
+            <th class="right aligned" style="color:rgb(0, 255, 35);">Score</th>
         </thead>
         <tbody>
             {% for user in users %}

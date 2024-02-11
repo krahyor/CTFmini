@@ -16,6 +16,37 @@
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/color.css') | add_date_url }}">
   {% block default_head %}{% endblock %}
   {% block additional_head %}{% endblock %}
+  <style>
+    td {
+      font-family: monospace;
+      font-size: 16px;
+    }
+
+    th {
+      font-family: monospace;
+      font-size: 20px;
+    }
+
+    p {
+      font-family: monospace;
+      font-size: 20px;
+    }
+
+    .ui.header {
+      font-family: monospace;
+      font-size: 18px;
+    }
+
+    .ui.primary.labeled.icon.button {
+      font-family: monospace;
+      font-size: 15px;
+    }
+
+    .ui.content {
+      font-family: monospace;
+      font-size: 15px;
+    }
+  </style>
 
   <title>
     {% block title %}
@@ -25,8 +56,10 @@
 </head>
 
 <body>
-  <div class="pusher"
-    style="background-image: url('https://w0.peakpx.com/wallpaper/677/889/HD-wallpaper-black-stylish-background-green-neon-lines-green-light-effects-abstract-black-background.jpg');background-size:cover;">
+  <div class="pusher" style="background-image: url('https://c4.wallpaperflare.com/wallpaper/742/820/884/abstract-black-green-shapes-wallpaper-preview.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-size: 100% 100%;">
     {% block body %}{% endblock body %}
   </div>
 </body>
