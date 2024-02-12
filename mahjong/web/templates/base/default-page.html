@@ -112,7 +112,8 @@
     {% endif %}
     <div class="item">
       <div style="display: flex; align-items: center;">
-        <img style="width: 45px; height: 100%; margin-right: 15px;" src="https://media.istockphoto.com/id/848933026/nl/vector/konijn-schedel-met-wortelen.jpg?s=170667a&w=0&k=20&c=Emnk3ukmEQAGa40JdH4LtQ39dfNnEMDcrIlEXfgAVPI="/>
+        <img style="width: 45px; height: 100%; margin-right: 15px;"
+          src="https://media.istockphoto.com/id/848933026/nl/vector/konijn-schedel-met-wortelen.jpg?s=170667a&w=0&k=20&c=Emnk3ukmEQAGa40JdH4LtQ39dfNnEMDcrIlEXfgAVPI=" />
         <p class="ui header" style="color: white; margin-top:2px">
           RABBITS CTF
         </p>
@@ -140,20 +141,24 @@
       <div class="article" style="margin-left: 0px;">
         {% endif%}
         <header>
-          <div class="ui segment" style="background-color: rgb(30, 30, 30); width:100%; border-bottom: 1px solid rgb(0, 255, 35);">
+          <div class="ui segment"
+            style="background-color: rgb(30, 30, 30); width:100%; border-bottom: 1px solid rgb(0, 255, 35);">
             <div class="introduction" style="border-bottom: none; padding-bottom: 0px !important;">
               <div style="display: flex; justify-content: space-between;">
                 <div style="display: flex; align-items: center;">
-                  <img style="width: 45px; height: 100%; margin-right: 15px;" src="https://media.istockphoto.com/id/848933026/nl/vector/konijn-schedel-met-wortelen.jpg?s=170667a&w=0&k=20&c=Emnk3ukmEQAGa40JdH4LtQ39dfNnEMDcrIlEXfgAVPI="/>
+                  <img style="width: 45px; height: 100%; margin-right: 15px;"
+                    src="https://media.istockphoto.com/id/848933026/nl/vector/konijn-schedel-met-wortelen.jpg?s=170667a&w=0&k=20&c=Emnk3ukmEQAGa40JdH4LtQ39dfNnEMDcrIlEXfgAVPI=" />
                   <p class="ui header" style="color: white; margin-top:2px">
-                  RABBITS CTF
+                    RABBITS CTF
                   </p>
                 </div>
+                {%if current_user.score %}
                 <div style="display: flex; align-items: center;">
                   <p class="ui header" style="color: white; margin-top:2px">
-                    Point
+                    Point {{ current_user.score }}
                   </p>
                 </div>
+                {% endif %}
               </div>
             </div>
           </div>

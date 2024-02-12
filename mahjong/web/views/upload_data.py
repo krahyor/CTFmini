@@ -36,17 +36,17 @@ def index():
 @module.route(
     "/upload",
     methods=["GET", "POST"],
-    defaults={"upload_data_id": None},
+    defaults={"submit_flag_id": None},
 )
-@module.route("/<upload_data_id>/edit", methods=["GET", "POST"])
+@module.route("/<submit_flag_id>/edit", methods=["GET", "POST"])
 @login_required
-def create_or_edit(upload_data_id):
+def create_or_edit(submit_flag_id):
     upload_data = models.FlagQuestion.objects()
     form = forms.flags.UploadDataForm()
     categories = models.Category.objects(status="active")
 
-    if upload_data_id:
-        upload_data = models.FlagQuestion.objects.get(id=upload_data_id)
+    if submit_flag_id:
+        upload_data = models.FlagQuestion.objects.get(id=submit_flag_id)
         form = forms.flags.UploadDataForm(obj=upload_data)
         upload_data.update_info.append(
             updater_info.create_update_information(current_user, request, "updated")
@@ -57,7 +57,7 @@ def create_or_edit(upload_data_id):
         print(form.errors)
         return render_template("/upload_data/create-edit.html", form=form)
 
-    if not upload_data_id:
+    if not submit_flag_id:
         upload_data = models.FlagQuestion(
             upload_by=current_user._get_current_object(),
             last_updated_by=current_user._get_current_object(),
@@ -70,7 +70,7 @@ def create_or_edit(upload_data_id):
     category = models.Category.objects(id=form.category.data).first()
     upload_data.category = category
 
-    if not upload_data_id:
+    if not submit_flag_id:
         if form.uploaded_file.data:
             upload_data.upload_file.put(
                 form.uploaded_file.data,

@@ -4,24 +4,24 @@
 {% block content %}
 <style>
     .ui.segment {
-      background-color: rgb(10, 10, 10); 
-      border-radius: 5px;
+        background-color: rgb(10, 10, 10);
+        border-radius: 5px;
     }
-  
+
     .ui.header {
-      color: rgb(0, 255, 35);
+        color: rgb(0, 255, 35);
     }
-    
+
     .blue-button {
-      background-color: rgb(0, 120, 255); 
-      color: white; 
+        background-color: rgb(0, 120, 255);
+        color: white;
     }
-    
+
     .ui.primary.labeled.icon.button {
-      background-color: rgb(0, 255, 35); 
-      color: black; 
+        background-color: rgb(0, 255, 35);
+        color: black;
     }
-  </style>
+</style>
 <div class="ui segment" style="border: 1px solid rgb(123, 123, 123);">
 
     <h1 class="ui header">
@@ -63,12 +63,16 @@
                             class="trash icon red"></i></a>
                 </td>
             </tr>
-            <div class="ui small modal {{submit_flag.id}}"style="background-color: black; color: white;font-size: 20px; border: 1px solid rgb(0, 255, 35);">
-                <div class="header"style="background-color: black; color: white;font-size: 20px; border: 1px solid rgb(0, 255, 35);">Delete Question </div>
-                <div class="content"style="background-color: black; color: white;font-size: 20px; ">
+            <div class="ui small modal {{submit_flag.id}}"
+                style="background-color: black; color: white;font-size: 20px; border: 1px solid rgb(0, 255, 35);">
+                <div class="header"
+                    style="background-color: black; color: white;font-size: 20px; border: 1px solid rgb(0, 255, 35);">
+                    Delete Question </div>
+                <div class="content" style="background-color: black; color: white;font-size: 20px; ">
                     <h4 class="ui headers">
-                        {{ ("Are you sure you want to delete") }} : <span class="ui red text">  {{ submit_flag.problem_header }}  ?</span >
-                      </h4>
+                        {{ ("Are you sure you want to delete") }} : <span class="ui red text"> {{
+                            submit_flag.problem_header }} ?</span>
+                    </h4>
                     <a class="ui right floated negative button" style="margin-bottom: 1em;"
                         href="{{url_for('upload_data.delete', submit_flag_id=submit_flag.id)}}">
                         {{ ("Delete") }}</i>

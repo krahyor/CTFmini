@@ -61,7 +61,8 @@
                 <div class="ui small feed">
                     <div class="content" style="font-size:18px">
                         <h5 class="ui sub header" style='color: rgb(251, 251, 251);'>Point: {{ submit_flag.point }}</h5>
-                        <h5 class="ui sub header" style='color: rgb(251, 251, 251);'>Type: {{ submit_flag.category }}
+                        <h5 class="ui sub header" style='color: rgb(251, 251, 251);'>Type: {{ submit_flag.category.name
+                            }}
                         </h5>
                     </div>
                 </div>
@@ -75,7 +76,7 @@
                     </div>
                 </div>
                 <div class="extra content">
-                    <a class="ui primary button">Success</a>
+                    <a class="ui primary button">Success<em data-emoji=":trophy:"></em></a>
                 </div>
                 {% else %}
                 <div class="ui small feed">
@@ -96,8 +97,9 @@
                 </div>
                 <div class="content" style="background-color: black; border: 1px solid rgb(0, 255, 35);">
                     <form method="GET">
-                        <h4 class="ui headers">Description: {{ submit_flag.description }}</h4>
-                        <a href="{{url_for('submit_flags.download', submit_flag_id=submit_flag.id)}}">Download: {{
+                        <h3 class="ui headers">Description: {{ submit_flag.description }}</h3>
+                        <a style="color:#2585e6; font-size: 20px"
+                            href="{{url_for('submit_flags.download', submit_flag_id=submit_flag.id)}}">Download: {{
                             submit_flag.upload_file_name }} ({{ '{:.2f}'.format(submit_flag.upload_file.length/1048576 )
                             }} MB)</a>
                         <div class="ui fluid action input">
