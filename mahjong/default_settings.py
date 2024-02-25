@@ -1,4 +1,4 @@
-APP_TITLE = "mahjong"
+APP_TITLE = "RABBITS CTF"
 MONGODB_DB = "mahjongdb"
 OAUTH_CACHE_TYPE = "simple"
 CACHE_TYPE = "simple"
