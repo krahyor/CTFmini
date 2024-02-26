@@ -1,4 +1,5 @@
 FROM debian:sid
+FROM python:3.11
 
 #RUN echo 'deb http://mirrors.psu.ac.th/debian/ sid main contrib non-free' > /etc/apt/sources.list
 
@@ -18,8 +19,8 @@ WORKDIR /app
 COPY mahjong/cmd /app/mahjong/cmd
 COPY poetry.lock pyproject.toml /app/
 RUN $PYTHON -m pip install --upgrade poetry
-RUN $PYTHON -m poetry config virtualenvs.create false && $PYTHON -m poetry install --no-interaction --only main
-
+RUN $PYTHON -m poetry config virtualenvs.create false 
+RUN . /venv/bin/activate && $PYTHON -m poetry install --no-interaction --only main 
 
 COPY mahjong/web/static/package.json mahjong/web/static/package-lock.json mahjong/web/static/
 RUN npm install --prefix mahjong/web/static

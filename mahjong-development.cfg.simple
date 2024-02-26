@@ -1,0 +1,2 @@
+MONGODB_DB = 'mahjongdb'
+SECRET_KEY = 'mahjong-secretkey'
