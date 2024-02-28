@@ -30,8 +30,7 @@ services:
         environment:
             MAHJONG_SETTINGS: /app/mahjong-development.cfg
         command:
-            #uwsgi --lazy-apps --ini scripts/mahjong-uwsgi.ini
-            /venv/bin/gunicorn -w 2 --env SCRIPT_NAME=/files --bind 0.0.0.0:9000 "mahjong.web:create_app()" --log-file=- --log-level debug --capture-output
+            /venv/bin/gunicorn --bind 0.0.0.0:9000 "mahjong.web:create_app()" --log-file=- --log-level debug --capture-output
         logging:
             options:
                 max-size: "10m"
