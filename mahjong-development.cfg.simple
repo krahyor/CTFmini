@@ -1,2 +1,3 @@
 MONGODB_DB = 'mahjongdb'
+MONGODB_HOST="mongodb"
 SECRET_KEY = 'mahjong-secretkey'
