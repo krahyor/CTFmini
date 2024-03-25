@@ -1,6 +1,8 @@
 {% extends "base/default-page.html" %}
 {% import '/base/html-renderer.html' as renderer %}
 
+
+
 {% block content %}
 <style>
     .ui.segment {
@@ -24,49 +26,49 @@
 </style>
 <div class="ui segment" style="border: 1px solid rgb(123, 123, 123);">
     <h1 class="ui header">
-        Categories
+        TEAMS
     </h1>
 </div>
 <div class="ui segment" style="border: 1px solid rgb(123, 123, 123);">
 
-    <a class="ui primary labeled icon button" href="{{url_for('categories.create_or_edit')}}">
+    <a class="ui primary labeled icon button" href="{{url_for('teams.create_or_edit')}}">
         <i class="add icon"></i>
-        Create Category
+        Create team
     </a>
     <table class="ui selectable inverted table">
         <thead>
             <tr>
-                <th>Category name</th>
+                <th>TEAM</th>
                 <th>status</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
         </thead>
         <tbody>
-            {% for category in categories %}
+            {% for team in teams %}
             <tr>
-                <td data-label="Name">{{ category.name }}</td>
-                <td data-label="Email">{{ category.status }}</td>
-                <td data-label="edit"><a href="{{url_for('categories.create_or_edit', category_id=category.id)}}"><i
+                <td data-label="Name">{{ team.name }}</td>
+                <td data-label="Email">{{ team.status }}</td>
+                <td data-label="edit"><a href="{{url_for('teams.create_or_edit', team_id=team.id)}}"><i
                             class="edit icon yellow"></i></a></td>
-                <td data-label="delete"><a onclick="showDeleteModal('{{ category.id }}')"><i
-                            class="trash icon red"></i></a>
+                <td data-label="delete"><a onclick="showDeleteModal('{{ team.id }}')"><i class="trash icon red"></i></a>
                 </td>
             </tr>
-            <div class="ui small modal {{category.id}}"
+            <div class="ui small modal {{team.id}}"
                 style="background-color: black; color: white;font-size: 20px; border: 1px solid rgb(0, 255, 35);">
                 <div class="header"
                     style="background-color: black; color: white;font-size: 20px; border: 1px solid rgb(0, 255, 35);">
-                    Change Status Category</div>
+                    Change Status Team</div>
                 <div class="content" style="background-color: black; color: white;font-size: 20px;">
                     <h4 class="ui headers">
-                        {{ ("Are you sure you want to change status") }} : <span class="ui red text"> {{ category.name
+                        {{ ("Are you sure you want to change status") }} : <span class="ui red text"> {{ team.name
                             }} ?</span>
                     </h4>
                     <a class="ui right floated negative button" style="margin-bottom: 1em;"
-                        href="{{url_for('categories.delete', category_id=category.id)}}">
+                        href="{{url_for('teams.delete', team_id=team.id)}}">
                         {{ ("Delete") }}</i>
                     </a>
+
                 </div>
             </div>
             {% endfor %}
@@ -76,8 +78,8 @@
 {% endblock %}
 {% block additional_js %}
 <script>
-    function showDeleteModal(category) {
-        category ? $('.ui.small.modal.' + category).modal('show') : $('.ui.small.modal').modal('hide')
+    function showDeleteModal(team) {
+        team ? $('.ui.small.modal.' + team).modal('show') : $('.ui.small.modal').modal('hide')
             ;
     }
 </script>

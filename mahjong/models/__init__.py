@@ -3,6 +3,7 @@ from .users import User
 from .flags import FlagQuestion
 from .categories import Category
 from .updates import UpdateInformation
+from .teams import Teams
 
 db = MongoEngine()
 

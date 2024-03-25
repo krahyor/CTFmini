@@ -44,15 +44,6 @@ def index():
             )
         )
 
-    if flag and submit_flag_id:
-        return redirect(
-            url_for(
-                "submit_flags.submit_flag_question",
-                flag=flag,
-                submit_flag_id=submit_flag_id,
-            )
-        )
-
     return render_template(
         "submit_flags/index.html",
         submit_flags=submit_flags,
@@ -81,8 +72,10 @@ def submit_flag_question(submit_flag_id, flag):
         submit_flag = models.FlagQuestion.objects.get(id=submit_flag_id)
     except:
         return redirect(url_for("submit_flags.index"))
-
-    if check_password_hash(submit_flag.flag, flag):
+    if (
+        check_password_hash(submit_flag.flag, flag)
+        and not "admin" in current_user.roles
+    ):
         current_user.score += submit_flag.point
         submit_flag.problem_solvers.append(current_user.team)
 
