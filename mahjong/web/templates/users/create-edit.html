@@ -28,7 +28,7 @@
     <div class="ui form">
       {{ form.csrf_token }}
       <div class="form-group">
-        {{ renderer.render_field(form.team) }}
+        {{ renderer.render_select(form.team) }}
       </div>
       <div class="form-group">
         {{ renderer.render_field(form.username) }}

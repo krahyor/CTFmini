@@ -29,18 +29,6 @@ def index():
     return render_template("accounts/index.html")
 
 
-@module.route("/register", methods=["GET", "POST"])
-def register():
-    form = forms.accounts.RegistrationForm()
-    if not form.validate_on_submit():
-        print(form.errors)
-        return render_template("accounts/register.html", form=form)
-    if oauth.create_user(form):
-        return redirect(url_for("accounts.login"))
-
-    return redirect(url_for("accounts.login", login_status="failed"))
-
-
 @module.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:

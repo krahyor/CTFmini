@@ -14,7 +14,7 @@ class User(me.Document, UserMixin):
     phone_number = me.StringField(max_length=10, default="")
     status = me.StringField(default="active")
     roles = me.ListField(me.StringField(), default=["user"])
-    team = me.StringField(default="", max_length=256)
+    team = me.ReferenceField("Teams", dbref=True)
     score = me.IntField(default=0)
 
     created_date = me.DateTimeField(required=True, default=datetime.datetime.now)
