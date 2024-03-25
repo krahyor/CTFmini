@@ -52,18 +52,10 @@ def index():
                 submit_flag_id=submit_flag_id,
             )
         )
-    # pagination = paginations.get_paginate(
-    # data=upload_data,
-    # items_per_page=25,
-    # )
 
     return render_template(
         "submit_flags/index.html",
         submit_flags=submit_flags,
-        # data_status=data_status,
-        # catagory_data=catagory_data,
-        # upload_data=pagination["data"],
-        # pagination=pagination,
     )
 
 

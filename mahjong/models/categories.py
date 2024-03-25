@@ -6,13 +6,17 @@ from .updates import UpdateInformation
 class Category(me.Document):
     meta = {"collection": "categories"}
 
-    name = me.StringField(required=True, unique=True, max_length=50)
-    status = me.StringField(default="active")
-    created_by = me.ReferenceField("User", dbref=True, require=True)
-    created_date = me.DateTimeField(required=True, default=datetime.datetime.now)
-    last_updated_by = me.ReferenceField("User", dbref=True, require=True)
+    name = me.StringField(required=True, unique=True, max_length=50)  # ชื่อหมวดหมู่
+    status = me.StringField(default="active")  # Status หมวดหมู่
+    created_by = me.ReferenceField("User", dbref=True, require=True)  # สร้างโดยใคร
+    created_date = me.DateTimeField(
+        required=True, default=datetime.datetime.now
+    )  # สร้างเมื่อวันไหน
+    last_updated_by = me.ReferenceField(
+        "User", dbref=True, require=True
+    )  # คนที่อัพเดตล่าสุด
     updated_date = me.DateTimeField(
-        required=True, default=datetime.datetime.now, auto_now=True
+        required=True, default=datetime.datetime.now, auto_now=True  # วันที่อัพเดต
     )
     update_info = me.EmbeddedDocumentListField("UpdateInformation")
 

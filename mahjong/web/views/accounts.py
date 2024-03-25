@@ -35,7 +35,6 @@ def register():
     if not form.validate_on_submit():
         print(form.errors)
         return render_template("accounts/register.html", form=form)
-
     if oauth.create_user(form):
         return redirect(url_for("accounts.login"))
 
@@ -80,7 +79,6 @@ def login():
 def logout():
     logout_user()
     session.clear()
-
     return redirect(url_for("accounts.login"))
 
 

@@ -59,19 +59,19 @@ def create_user(form):
 
 def create_user_engpsu(user_info):
     user = models.User(
-        username=userinfo.get("username"),
-        email=userinfo.get("email"),
-        first_name=userinfo.get("first_name").title(),
-        last_name=userinfo.get("last_name").title(),
+        username=user_info.get("username"),
+        email=user_info.get("email"),
+        first_name=user_info.get("first_name").title(),
+        last_name=user_info.get("last_name").title(),
         status="active",
     )
 
-    if "staff_id" in userinfo.keys():
+    if "staff_id" in user_info.keys():
         user.roles.append("staff")
-    elif "student_id" in userinfo.keys():
+    elif "student_id" in user_info.keys():
         user.roles.append("student")
 
-    if userinfo["username"].isdigit():
+    if user_info["username"].isdigit():
         user.roles.append("student")
     else:
         user.roles.append("staff")
