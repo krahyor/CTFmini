@@ -39,12 +39,16 @@
             </tr>
         </thead>
         <tbody>
-            {% for user in users %}
+            {% for team in teams %}
             <tr>
                 <td>{{ loop.index }}</td>
-                <td>{{ user.team }}</td>
+                <td>{{ team.name }}</td>
                 <!-- Add the left-aligned class to align score data to the left -->
-                <td class="left-aligned">{{ user.score }}</td>
+                {% if team.score == none %}
+                <td class="left-aligned">0</td>
+                {% else %}
+                <td class="left-aligned">{{ team.score }}</td>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>

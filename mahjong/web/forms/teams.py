@@ -8,12 +8,7 @@ from mahjong import models
 BaseTeamsForm = model_form(
     models.Teams,
     FlaskForm,
-    exclude=[
-        "created_by",
-        "created_date",
-        "last_updated_by",
-        "updated_date",
-    ],
+    exclude=["created_by", "created_date", "last_updated_by", "updated_date", "score"],
     field_args={"name": {"label": "Name"}, "status": {"label": "Status"}},
     # field_args={"name": {"label": "Team Name"}, "status": {"label" "Status"}},
 )
