@@ -51,6 +51,7 @@ def index():
 
 
 @module.route("<submit_flag_id>/download_file", methods=["GET", "POST"])
+@login_required
 def download(submit_flag_id):
     submit_flag = models.FlagQuestion.objects(id=submit_flag_id)
     try:
@@ -67,8 +68,9 @@ def download(submit_flag_id):
 
 
 @module.route("<submit_flag_id>/submit_flag/<flag>", methods=["GET", "POST"])
+@login_required
 def submit_flag_question(submit_flag_id, flag):
-    msg_error = ""
+
     try:
         submit_flag = models.FlagQuestion.objects.get(id=submit_flag_id)
         team = models.Teams.objects.get(id=current_user.team.id)
@@ -83,6 +85,7 @@ def submit_flag_question(submit_flag_id, flag):
             current_user.score += submit_flag.point
             team.score += submit_flag.point
             submit_flag.problem_solvers.append(current_user.team.name)
+            team.updated_date = datetime.datetime.now()
 
     submit_flag.save()
     current_user.save()
