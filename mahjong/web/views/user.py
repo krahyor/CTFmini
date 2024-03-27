@@ -44,7 +44,7 @@ def index():
 def create_or_edit(user_id):
     form = forms.accounts.RegistrationForm()
     user = models.User.objects()
-    team = models.Teams.objects(status="active")
+    teams = models.Teams.objects(status="active")
     msg_error = ""
 
     if user_id:
@@ -55,13 +55,17 @@ def create_or_edit(user_id):
         )
         form.username.validators = []
         form.password.validators = []
-    form.team.choices = [(i.id, i.name) for i in team]
+
+    form.team.choices = [(i.id, i.name) for i in teams]
+
     if not form.validate_on_submit():
+
         user.username = form.username.data
         print(form.errors)
         return render_template(
             "/users/create-edit.html", form=form, user=user, msg_error=msg_error
         )
+
     check_user = models.User.objects(username=form.username.data)
     check_email = models.User.objects(email=form.email.data)
 
@@ -97,6 +101,9 @@ def create_or_edit(user_id):
         )
     else:
         form.populate_obj(user)
+        team = models.Teams.objects.get(id=form.team.data)
+        user.team = team
+
     user.save()
     return redirect(
         url_for("users.index"),

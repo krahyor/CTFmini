@@ -53,6 +53,7 @@ def create_or_edit(submit_flag_id):
         )
 
     form.category.choices = [(i.id, i.name) for i in categories]
+
     if not form.validate_on_submit():
         print(form.errors)
         return render_template("/upload_data/create-edit.html", form=form)

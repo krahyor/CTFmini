@@ -51,7 +51,7 @@
             {% for submit_flag in submit_flags %}
             <tr>
                 <td data-label="Name">{{ submit_flag.problem_header }}</td>
-                <td data-label="Email">{{ submit_flag.category }}</td>
+                <td data-label="Email">{{ submit_flag.category.name }}</td>
                 <td data-label="Phone">{{ submit_flag.point }}</td>
                 <td data-label="File name">{{ submit_flag.upload_file.filename }}
                     ({{ '{:.2f}'.format(submit_flag.upload_file.length/100000 , 2) }} MB)
