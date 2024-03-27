@@ -42,6 +42,7 @@
                 <th>status</th>
                 <th>Edit</th>
                 <th>Delete</th>
+                <th>Recover</th>
             </tr>
         </thead>
         <tbody>
@@ -52,6 +53,9 @@
                 <td data-label="edit"><a href="{{url_for('teams.create_or_edit', team_id=team.id)}}"><i
                             class="edit icon yellow"></i></a></td>
                 <td data-label="delete"><a onclick="showDeleteModal('{{ team.id }}')"><i class="trash icon red"></i></a>
+                </td>
+                <td data-label="Recover"><a href="{{ url_for('teams.recover',team_id=team.id)}}"><i
+                            class="redo icon"></i></a>
                 </td>
             </tr>
             <div class="ui small modal {{team.id}}"

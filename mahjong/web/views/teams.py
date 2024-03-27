@@ -61,3 +61,12 @@ def delete(team_id):
     return redirect(
         url_for("teams.index"),
     )
+
+
+@module.route("/<team_id>/recover", methods=["GET", "POST"])
+@login_required
+def recover(team_id):
+    team = models.Teams.objects.get(id=team_id)
+    team.status = "active"
+    team.save()
+    return redirect(url_for("teams.index"))
