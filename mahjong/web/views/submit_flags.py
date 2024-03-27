@@ -68,17 +68,23 @@ def download(submit_flag_id):
 
 @module.route("<submit_flag_id>/submit_flag/<flag>", methods=["GET", "POST"])
 def submit_flag_question(submit_flag_id, flag):
+    msg_error = ""
     try:
         submit_flag = models.FlagQuestion.objects.get(id=submit_flag_id)
+        team = models.Teams.objects.get(id=current_user.team.id)
     except:
         return redirect(url_for("submit_flags.index"))
+
     if (
         check_password_hash(submit_flag.flag, flag)
         and not "admin" in current_user.roles
     ):
-        current_user.score += submit_flag.point
-        submit_flag.problem_solvers.append(current_user.team)
+        if not current_user.team.name in submit_flag.problem_solvers:
+            current_user.score += submit_flag.point
+            team.score += submit_flag.point
+            submit_flag.problem_solvers.append(current_user.team.name)
 
     submit_flag.save()
     current_user.save()
+    team.save()
     return redirect(url_for("submit_flags.index"))

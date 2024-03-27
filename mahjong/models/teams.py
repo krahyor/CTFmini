@@ -11,5 +11,5 @@ class Teams(me.Document):
     updated_date = me.DateTimeField(
         required=True, default=datetime.datetime.now, auto_now=True
     )
-    score = me.IntField()
+    score = me.IntField(default=0)
     meta = {"collection": "teams"}
