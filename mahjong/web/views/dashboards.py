@@ -23,4 +23,7 @@ module = Blueprint("dashboards", __name__, url_prefix="/dashboard")
 @login_required
 def index():
     teams = models.Teams.objects(status="active").order_by("-score", "updated_date")
-    return render_template("dashboards/index.html", teams=teams)
+    users = models.User.objects(status="active", roles__ne="admin").order_by(
+        "-score", "updated_date"
+    )
+    return render_template("dashboards/index.html", teams=teams, users=users)

@@ -86,6 +86,7 @@ def submit_flag_question(submit_flag_id, flag):
             team.score += submit_flag.point
             submit_flag.problem_solvers.append(current_user.team.name)
             team.updated_date = datetime.datetime.now()
+            current_user.updated_date = datetime.datetime.now()
 
     submit_flag.save()
     current_user.save()
