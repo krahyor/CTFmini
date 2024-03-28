@@ -42,6 +42,11 @@
         color: #fff;
         /* Change this to the desired text color */
     }
+
+    .box {
+        inline-size: auto;
+        overflow-wrap: break-word;
+    }
 </style>
 
 <div class="ui stackable four column grid">
@@ -97,7 +102,7 @@
                 </div>
                 <div class="content" style="background-color: black; border: 1px solid rgb(0, 255, 35);">
                     <form method="GET">
-                        <h3 class="ui headers">Description: {{ submit_flag.description }}</h3>
+                        <h3 class="ui headers box">Description: {{ submit_flag.description }}</h3>
                         <a style="color:#2585e6; font-size: 20px"
                             href="{{url_for('submit_flags.download', submit_flag_id=submit_flag.id)}}">Download: {{
                             submit_flag.upload_file_name }} ({{ '{:.2f}'.format(submit_flag.upload_file.length/1048576 )
