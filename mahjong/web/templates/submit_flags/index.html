@@ -14,7 +14,7 @@
     }
 
     .ui.card .content {
-        padding: 1em;
+        padding: 10px;
     }
 
     .ui.card .content h5.ui.sub.header {
@@ -77,7 +77,8 @@
                 {% if current_user.team.name in submit_flag.problem_solvers %}
                 <div class="ui small feed">
                     <div class="content" style="font-size:18px">
-                        <h5 class="ui sub header" style='color: rgb(251, 251, 251);'>Status: Success</h5>
+                        <h5 class="ui sub header" style='color: rgb(251, 251, 251);'>Status: <span
+                                class="ui success text">Success</span></h5>
                     </div>
                 </div>
                 <div class="extra content">
@@ -86,7 +87,8 @@
                 {% else %}
                 <div class="ui small feed">
                     <div class="content" style="font-size:18px">
-                        <h5 class="ui sub header" style='color: rgb(251, 251, 251);'>Status: Failed</h5>
+                        <h5 class="ui sub header" style='color: rgb(251, 251, 251);'>Status: <span
+                                class="ui red text">Failed</span></h5>
                     </div>
                 </div>
                 <div class="extra content">
@@ -97,16 +99,19 @@
             </div>
             <div class="ui small modal {{ submit_flag.id }}">
                 <div class="header"
-                    style="background-color: black; color: white;font-size: 20px; border: 1px solid rgb(0, 255, 35);">{{
+                    style="background-color: black; color: white;font-size: 15px; border: 1px solid rgb(0, 255, 35);">
+                    Problem name : {{
                     submit_flag.problem_header }}
                 </div>
                 <div class="content" style="background-color: black; border: 1px solid rgb(0, 255, 35);">
                     <form method="GET">
-                        <h3 class="ui headers box">Description: {{ submit_flag.description }}</h3>
-                        <a style="color:#2585e6; font-size: 20px"
+                        <a style="color:#2585e6;"
                             href="{{url_for('submit_flags.download', submit_flag_id=submit_flag.id)}}">Download: {{
                             submit_flag.upload_file_name }} ({{ '{:.2f}'.format(submit_flag.upload_file.length/1048576 )
                             }} MB)</a>
+                        <h3 class="ui headers box" style="font-size: 15px;">Description: {{ submit_flag.description }}
+                            <a onclick="Hint('{{ submit_flag.hint }}')"><span class="ui info text">(hist)</span></a>
+                        </h3>
                         <div class="ui fluid action input">
                             <input name="flag" id="ssss" type="text" placeholder="flag">
                             <input name="submit_flag_id" style="display: none;" type="text" value="{{submit_flag.id}}">
@@ -127,6 +132,11 @@
     function showQuestion(submit_flag) {
         submit_flag ? $('.ui.small.modal.' + submit_flag).modal('show') : $('.ui.small.modal').modal('hide')
             ;
+    }
+</script>
+<script>
+    function Hint(msg) {
+        alert('Hist : ' + msg);
     }
 </script>
 {% endblock %}

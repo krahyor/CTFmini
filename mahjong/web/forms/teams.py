@@ -14,4 +14,9 @@ BaseTeamsForm = model_form(
 
 
 class TeamsForm(BaseTeamsForm):
-    pass
+    picture = file.FileField(
+        "File type (.jpg or .png)",
+        validators=[
+            file.FileAllowed(["png", "jpg", "jpeg"], "You can use only jpg , png"),
+        ],
+    )

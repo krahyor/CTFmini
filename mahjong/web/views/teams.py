@@ -7,6 +7,8 @@ from flask import (
     url_for,
     request,
     session,
+    Response,
+    send_file,
     redirect,
 )
 
@@ -30,14 +32,15 @@ def index():
 @module.route("<team_id>/edit", methods=["GET", "POST"])
 @login_required
 def create_or_edit(team_id):
-    form = forms.teams.TeamsForm()
     teams = models.Teams.objects()
+    form = forms.teams.TeamsForm()
 
     if team_id:
         teams = models.Teams.objects.get(id=team_id)
         form = forms.teams.TeamsForm(obj=teams)
 
     if not form.validate_on_submit():
+        print(form.errors)
         return render_template("/teams/create_or_edit.html", form=form, teams=teams)
 
     if not team_id:
@@ -46,7 +49,21 @@ def create_or_edit(team_id):
             last_updated_by=current_user._get_current_object(),
         )
 
-    form.populate_obj(teams)
+    if not team_id:
+        if form.picture.data:
+            teams.picture.put(
+                form.picture.data,
+                filename=form.picture.data.filename,
+                content_type=form.picture.data.content_type,
+            )
+        teams.name = form.name.data
+    else:
+        if form.picture.data:
+            teams.picture.replace(
+                form.picture.data,
+                filename=form.picture.data.filename,
+                content_type=form.picture.data.content_type,
+            )
     teams.last_updated_by = current_user._get_current_object()
     teams.save()
     return redirect(url_for("teams.index"))
@@ -70,3 +87,18 @@ def recover(team_id):
     team.status = "active"
     team.save()
     return redirect(url_for("teams.index"))
+
+
+@module.route("/<team_id>/picture")
+@login_required
+def get_image(team_id):
+    response = Response()
+    response.status_code = 404
+    team = models.Teams.objects.get(id=team_id)
+    if team.picture:
+        response = send_file(
+            team.picture,
+            download_name=team.picture.filename,
+            mimetype=team.picture.content_type,
+        )
+    return response
